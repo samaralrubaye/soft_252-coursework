@@ -30,6 +30,8 @@ public class adminConcrete extends usersConcrete {
         this.ID_d =ID_d;
     }
 
+    
+
     public char getID_s() {
         return ID_s;
     }
@@ -70,7 +72,7 @@ public class adminConcrete extends usersConcrete {
            UserID= "P"+ID_d;
            Address=reeder.nextLine();
            System.out.println("UserID");
-           admin.getLast().getI
+           
            
           
 
