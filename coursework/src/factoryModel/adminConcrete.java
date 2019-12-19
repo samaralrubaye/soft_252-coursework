@@ -5,12 +5,9 @@
  */
 package factoryModel;
 
-import static java.time.Clock.system;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Random;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +17,16 @@ public class adminConcrete extends usersConcrete {
     char ID_s='A';
     int ID_d=0000;
 
-    public adminConcrete(String UserID, address Address, String Name, String password ,char ID_S , int ID_d ) {
+    /**
+     *
+     * @param UserID
+     * @param Address
+     * @param Name
+     * @param password
+     * @param ID_s
+     * @param ID_d
+     */
+    public adminConcrete(String UserID, String Address, String Name, String password ,char ID_s , int ID_d ) {
         super(UserID, Address, Name, password);
         this.ID_s =ID_s;
         this.ID_d =ID_d;
@@ -74,10 +80,12 @@ Scanner reeder = new Scanner(System.in);
       
    
    public void create() {
-           ArrayList<adminConcrete> admin =new ArrayList<>();
+           LinkedList<adminConcrete> admin =new LinkedList<>();
            System.out.println("please enter the user number");
            Name=reeder.nextLine();
-           UserID=admin.get(admin.size()).getUserID()+1;
+           ID_d=admin.get(admin.size()).getID_d()+1;
+           UserID= "P"+ID_d;
+           System.out.println("UserID");
           
 
   }
@@ -100,25 +108,23 @@ Scanner reeder = new Scanner(System.in);
      */
     public  void DeleteAdmin(){
         
-    ArrayList<adminConcrete> admin =new ArrayList<>();
+    LinkedList<adminConcrete> admin =new LinkedList<>();
           
          String ID = reeder.nextLine();
-       
-   
-       for(int i=0 ;i<= admin.size();i++){
-       if(ID== admin.get(i).getUserID()){
-           admin.remove(i);
-           System.out.println("the admen is removed");
-           return;
-       }
-       
-       
-
-   }
+        
+        
+        for(int i=0 ;i<= admin.size();i++){
+            boolean equals = ID.equals(admin.get(i).getUserID());
+            if (equals== true){
+                admin.remove(i);
+                System.out.println("the  is removed");
+            }
+            else{System.out.println("  TRY AGAIN ");}
+        }
 }
 public  void DeleteDoctor(){
         
-    ArrayList<DoctorsConcrete> doctor =new ArrayList<>();
+    LinkedList<DoctorsConcrete> doctor =new LinkedList<>();
           
          String ID = reeder.nextLine();
        
@@ -129,7 +135,63 @@ public  void DeleteDoctor(){
            System.out.println("the  is removed");
            return;
        }
+     
+         
+       }
+}
+
+    /**
+     *CREATE A DOCTOR
+     */
+    public void CreatDoctor() {
+    
+        ArrayList<SecretaryConcreate> Secretary =new ArrayList<>();
+        System.out.println("please enter the user number");
+        Name=reeder.nextLine();
+        Address= reeder.nextLine();
+        int newID = Secretary.get(Secretary.size()).get
+        UserID ="S"+newID;
+        System.out.println(UserID);
+    }
+
+    
+    
+    
+    
+    /**
+     *create a secretary
+     */
+    public  void DeleteSecretary(){
+        
+    ArrayList<SecretaryConcreate> secretary =new ArrayList<>();
+          
+         String ID = reeder.nextLine();
        
+   
+       for(int i=0 ;i<= secretary.size();i++){
+           
+        boolean equals = ID.equals(secretary.get(i).getUserID());
+        if (equals== true){
+           secretary.remove(i);
+           System.out.println("the  is removed");
+        }
+        else{System.out.println("  TRY AGAIN ");}
+                   }
+         
+       }
+     
+   public void CreateSecretary() {
+           super.Create(); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<SecretaryConcreate> Secretary =new ArrayList<>();
+        System.out.println("please enter the user number");
+        Name=reeder.nextLine();
+        Address= reeder.nextLine();
+        int newID = Secretary.get(Secretary.size()).
+        UserID ="S"+newID;
+        System.out.println("userID");
+    }
+
+
        
 
    }

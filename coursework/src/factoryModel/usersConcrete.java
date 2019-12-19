@@ -11,11 +11,11 @@ package factoryModel;
  */
 public  class  usersConcrete {
     String UserID;
-    address Address;
+    String Address;
     String Name;
     String password;
 
-    public usersConcrete(String UserID, address Address, String Name, String password) {
+    public usersConcrete(String UserID, String Address, String Name, String password) {
         this.UserID = UserID;
         this.Address = Address;
         this.Name = Name;
@@ -30,11 +30,11 @@ public  class  usersConcrete {
         this.UserID = UserID;
     }
 
-    public address getAddress() {
+    public String getAddress() {
         return Address;
     }
 
-    public void setAddress(address Address) {
+    public void setAddress(String Address) {
         this.Address = Address;
     }
 
