@@ -15,17 +15,17 @@ import java.util.Random;
 public class PatientConcrete extends usersConcrete {
     int Age;
     String gender;
-   
-    
-   
-    
+    int ID_d=0000;
+    char ID_s='P';
 
-    public PatientConcrete( address pAddress, String pName, int pAge, String pgender ) {
-        super( pAddress, pName);
+    public PatientConcrete(int Age, String gender, String UserID, String Address, String Name, String password,int ID_d, char ID_s) {
+        super(UserID, Address, Name, password);
+        
+        this.ID_d=ID_d;
+        this.ID_s =ID_s;
+        this.Age = Age;
+        this.gender = gender;
     }
-
-   
-    
 
     public int getAge() {
         return Age;
@@ -42,22 +42,25 @@ public class PatientConcrete extends usersConcrete {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    //request
-    @Override
-    public  void create(ArrayList<String > newuser){
-         
-         
-         
-     }
+
+    public int getID_d() {
+        return ID_d;
+    }
+
+    public void setID_d(int ID_d) {
+        this.ID_d = ID_d;
+    }
+
+    public char getID_s() {
+        return ID_s;
+    }
+
+    public void setID_s(char ID_s) {
+        this.ID_s = ID_s;
+    }
+   
     
-    public void patientID(){
-    char ID_s='p';
-    Random r = new Random();
-    String randomNumber = String.format("%04d", (Object) r.nextInt(1001));
-    System.out.println(ID_s + randomNumber);
+   
     
-    
-}
-         
-    
+
 }

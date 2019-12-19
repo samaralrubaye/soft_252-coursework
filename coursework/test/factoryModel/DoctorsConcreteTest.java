@@ -15,9 +15,9 @@ import org.junit.Test;
  *
  * @author engsa
  */
-public class adminConcreteTest {
+public class DoctorsConcreteTest {
     
-    public adminConcreteTest() {
+    public DoctorsConcreteTest() {
     }
     
     @BeforeClass
@@ -37,11 +37,19 @@ public class adminConcreteTest {
     }
 
     @Test
-    public void testGetID_s() {
+    public void testGetNotes() {
     }
 
     @Test
-    public void testSetID_s() {
+    public void testSetNotes() {
+    }
+
+    @Test
+    public void testGetMedicin() {
+    }
+
+    @Test
+    public void testSetMedicin() {
     }
 
     @Test
@@ -53,31 +61,11 @@ public class adminConcreteTest {
     }
 
     @Test
-    public void testCreate() {
+    public void testGetID_s() {
     }
 
     @Test
-    public void testView() {
-    }
-
-    @Test
-    public void testDeleteAdmin() {
-    }
-
-    @Test
-    public void testDeleteDoctor() {
-    }
-
-    @Test
-    public void testCreatDoctor() {
-    }
-
-    @Test
-    public void testDeleteSecretary() {
-    }
-
-    @Test
-    public void testCreateSecretary() {
+    public void testSetID_s() {
     }
     
 }

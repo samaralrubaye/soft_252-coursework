@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package factoryModel;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -47,22 +45,7 @@ public class adminConcrete extends usersConcrete {
     public void setID_d(int ID_d) {
         this.ID_d = ID_d;
     }
-    
-    /**delete patient
-     *
-     */
-  
-    
-
- 
-    
-    
-    
-    /* ctrate doctor*/
-
-    
-    
-    
+   
     
 
     /**
@@ -75,17 +58,20 @@ public class adminConcrete extends usersConcrete {
       
       
 
-Scanner reeder = new Scanner(System.in);
+
    
       
-   
+   Scanner reeder = new Scanner(System.in);
    public void create() {
            LinkedList<adminConcrete> admin =new LinkedList<>();
            System.out.println("please enter the user number");
            Name=reeder.nextLine();
            ID_d=admin.get(admin.size()).getID_d()+1;
            UserID= "P"+ID_d;
+           Address=reeder.nextLine();
            System.out.println("UserID");
+           admin.getLast().getI
+           
           
 
   }
@@ -141,15 +127,15 @@ public  void DeleteDoctor(){
 }
 
     /**
-     *CREATE A DOCTOR
+     *CREATE 
      */
     public void CreatDoctor() {
     
-        ArrayList<SecretaryConcreate> Secretary =new ArrayList<>();
+        LinkedList<SecretaryConcreate> Secretary =new LinkedList<>();
         System.out.println("please enter the user number");
         Name=reeder.nextLine();
         Address= reeder.nextLine();
-        int newID = Secretary.get(Secretary.size()).get
+        int newID = Secretary.get(Secretary.size()).getID_d()+1;
         UserID ="S"+newID;
         System.out.println(UserID);
     }
@@ -163,7 +149,7 @@ public  void DeleteDoctor(){
      */
     public  void DeleteSecretary(){
         
-    ArrayList<SecretaryConcreate> secretary =new ArrayList<>();
+    LinkedList<SecretaryConcreate> secretary =new LinkedList<>();
           
          String ID = reeder.nextLine();
        
@@ -182,12 +168,12 @@ public  void DeleteDoctor(){
      
    public void CreateSecretary() {
            super.Create(); //To change body of generated methods, choose Tools | Templates.
-        ArrayList<SecretaryConcreate> Secretary =new ArrayList<>();
+        LinkedList<SecretaryConcreate> Secretary =new LinkedList<>();
         System.out.println("please enter the user number");
         Name=reeder.nextLine();
         Address= reeder.nextLine();
-        int newID = Secretary.get(Secretary.size()).
-        UserID ="S"+newID;
+        ID_d = Secretary.get(Secretary.size()).ID_d+1;
+        UserID ="S"+ID_d;
         System.out.println("userID");
     }
 
@@ -195,8 +181,7 @@ public  void DeleteDoctor(){
        
 
    }
-}
-}
+
   
  
         

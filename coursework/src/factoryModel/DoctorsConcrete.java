@@ -5,18 +5,27 @@
  */
 package factoryModel;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 /**
  *
  * @author engsa
  */
+
 public class DoctorsConcrete extends usersConcrete {
+     Scanner reeder = new Scanner(System.in);
     String notes;
-    medicine medicin;
-    
-    public DoctorsConcrete( address pAddress, String pName,medicine pmedicine) {
-        super( pAddress, pName);
+   medicine medicin;
+    int ID_d=0000;
+    char ID_s='D';
+
+    public DoctorsConcrete(String notes, medicine medicin, String UserID, String Address, String Name, String password,int ID_d, char ID_s) {
+        super(UserID, Address, Name, password);
+        this.ID_d=ID_d;
+        this.ID_s=ID_s;
+        this.notes = notes;
+        this.medicin = medicin;
     }
 
     public String getNotes() {
@@ -35,13 +44,36 @@ public class DoctorsConcrete extends usersConcrete {
         this.medicin = medicin;
     }
 
+    public int getID_d() {
+        return ID_d;
+    }
+
+    public void setID_d(int ID_d) {
+        this.ID_d = ID_d;
+    }
+
+    public char getID_s() {
+        return ID_s;
+    }
+
+    public void setID_s(char ID_s) {
+        this.ID_s = ID_s;
+    }
+    
+
+    
+   
+
+   
     /**
      *
      */
-     ArrayList<String> Doctor =new ArrayList<>();
-    @Override
-   public  void create(ArrayList<String > precicriptin){
-         
-   }
+    public void writeanit(){
+     LinkedList<medicine> newmed=new LinkedList<>();
+      medicin=reeder.nextLine();
+    
+          
+    }
+    
    
      }
