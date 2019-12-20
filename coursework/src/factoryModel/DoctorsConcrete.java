@@ -28,6 +28,8 @@ public class DoctorsConcrete extends usersConcrete {
         this.medicin = medicin;
     }
 
+    
+
     public String getNotes() {
         return notes;
     }

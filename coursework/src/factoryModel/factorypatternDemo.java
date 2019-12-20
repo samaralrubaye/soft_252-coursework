@@ -5,25 +5,10 @@
  */
 package factoryModel;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author engsa
  */
 public class factorypatternDemo {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-  
-
-   
     
-    
-   
-    
-    
-}
 }
