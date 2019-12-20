@@ -5,22 +5,33 @@
  */
 package factoryModel;
 
-/**
- *
- * @author engsa
- */
-public class userFactory {
-    private final mainFACTORY Factory;
-     public userFactory(mainFACTORY Factory){
-       this.Factory=Factory;  
-     }
-     
-     
-     
- public usersConcrete newusers(String Type){
-     usersConcrete usersConcrete =Factory.createUser(Type);
+public  class userFactory {
+     public usersConcrete getuser(String Type){
+     	
+      if(Type.equalsIgnoreCase("DoctorsConcrete")){
+         return new DoctorsConcrete(notes, medicin,UserID,Address,Name,password,ID_d,ID_s);
+         
+      } else if(Type.equalsIgnoreCase("SecretaryConcreate")){
+         return new SecretaryConcreate(UserID,Address,Name,password,ID_d,ID_s);
+         
+      } else if(Type.equalsIgnoreCase("PatientConcrete")){
+         return new PatientConcrete( Age,gender, UserID,Address,  Name,password,ID_d, ID_s);
       
-     return usersConcrete;
- }
-    
+      } else if(Type.equalsIgnoreCase("AdminConcrete")){
+         return new PatientConcrete( UserID,Address, Name,password,ID_d, ID_s);
+      }
+     return  null;
 }
+}
+
+      
+     
+     
+     
+ 
+ 
+      
+    
+ 
+    
+

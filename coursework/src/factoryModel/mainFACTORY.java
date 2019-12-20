@@ -11,27 +11,7 @@ package factoryModel;
  */
 public class mainFACTORY {
     
-     public usersConcrete createUser(String Type){
-           usersConcrete usersConcrete ;
-           switch(Type){
-               case "DoctorsConcrete" :
-                   
-                usersConcrete = new DoctorsConcrete(); 
-                  breake;
-                   
-                case "admimConcrete" :
-                      usersConcrete =new admimConcrete();
-                       breake;
-                       
-                case "PatientConcrete" :
-                   usersConcrete =new PatientConcrete();
-                   
-                       breake;   
-                       defoult:
-                       usersConcrete =new SecritaryConcreate();
-           }
-           return usersConcrete;
-        }
+    
   
 
     /**
@@ -39,7 +19,36 @@ public class mainFACTORY {
      */
     public static void main(String[] args) {
         
-        
+       userFactory userFactory = new userFactory();
+
+      //get an object of Circle and call its draw method.
+      usersConcrete Doctor = userFactory.getuser("DoctorConcrete");
+
+      //call draw method of Doctor
+      Doctor.Create();
+      Doctor.Delete();
+      Doctor.view();
+
+      //get an object of Rectangle and call its draw method.
+      usersConcrete Secretary = userFactory.getuser("SecretaryConcreate");
+
+      //call methods of Secretary
+      Secretary.Create();
+      Secretary.Delete();
+      Secretary.view();
+
+      //get an object of Square and call its draw method.
+      usersConcrete patient = userFactory.getuser("PatientConcrete");
+
+      //call draw method of square
+      patient.Create();
+      patient.Delete();
+      patient.view();
+      usersConcrete Admin = userFactory.getuser("adminConcrete");
+      Admin.Create();
+      Admin.Delete();
+      Admin.view();
+   } 
         
    
 
@@ -50,5 +59,5 @@ public class mainFACTORY {
     
     
 }
-}
+
 
