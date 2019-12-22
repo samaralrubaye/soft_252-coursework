@@ -5,33 +5,21 @@
  */
 package factoryModel;
 
-public  class userFactory {
-     public usersConcrete getuser(String Type){
-     	
-      if(Type.equalsIgnoreCase("DoctorsConcrete")){
-         return new DoctorsConcrete(notes, medicin,UserID,Address,Name,password,ID_d,ID_s);
-         
-      } else if(Type.equalsIgnoreCase("SecretaryConcreate")){
-         return new SecretaryConcreate(UserID,Address,Name,password,ID_d,ID_s);
-         
-      } else if(Type.equalsIgnoreCase("PatientConcrete")){
-         return new PatientConcrete( Age,gender, UserID,Address,  Name,password,ID_d, ID_s);
-      
-      } else if(Type.equalsIgnoreCase("AdminConcrete")){
-         return new  PatientConcrete( UserID,Address, Name,password,ID_d, ID_s);
-      }
-     return  null;
-}
-}
+public class userFactory {
 
-      
-     
-     
-     
- 
- 
-      
-    
- 
-    
+    public static usersConcrete getAdminUser(String userId, String address, String name, String password, char ID_s, int ID_d) {
+        return new adminConcrete(userId, address, name, password, ID_s, ID_d);
+    }
 
+    public static usersConcrete getDoctorUser(String notes, medicine medicin, String userId, String addr, String name, String password, int ID_d, char ID_s) {
+        return new DoctorsConcrete(notes, medicin, userId, addr, name, password, ID_d, ID_s);
+    }
+
+    public static usersConcrete getScretaryUser(String userId, String address, String name, String password, char ID_s, int ID_d) {
+        return new SecretaryConcreate(userId, address, name, password, ID_d, ID_s);
+    }
+
+    public static usersConcrete getPatientUser(int age, String gender, String userId, String addr, String name, String password, int ID_d, char ID_s) {
+        return new PatientConcrete(age, gender, userId, addr, name, password, ID_d, ID_s);
+    }
+}

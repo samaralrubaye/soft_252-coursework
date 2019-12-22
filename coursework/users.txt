@@ -1,0 +1,8 @@
+A_0000, Random Address,  John Doe, secret_password
+A_0001, Another Address, Janet Doe, another_password
+D_0002, Doctor 2 Address, James Bond, bonds_password, Medicine 1, Some random notes form Dr. James Bond
+D_0003, Doctor 3 Address, Jude Bond, bonds_password, Medicine 2, Some random notes form Dr. Jude Bond
+S_0004, Random Address,  Secretary Doe, secret_password
+S_0005, Another Address, Secretary Janet, another_password
+P_0006, Random Address,  Jean Doe, secret_password, 23, Male
+P_0007, Another Address, Mariam Doe, another_password, 20, Female

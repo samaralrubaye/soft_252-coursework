@@ -5,20 +5,22 @@
  */
 package factoryModel;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author engsa
  */
 public class DoctorManagment {
-     private ArrayList<String> Doctor =new ArrayList<>();
+    
+
+    public medicine getNewmedicin() {
+        medicine med =new medicine();
+       med.getName();
+        return  med;
+    }
+
      
-     public ArrayList<String> GetList(){
-         return null;
-         
         
      }
-}
+
 
 

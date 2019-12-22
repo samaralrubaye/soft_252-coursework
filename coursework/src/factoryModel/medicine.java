@@ -16,8 +16,13 @@ public class medicine {
      Scanner reeder = new Scanner(System.in);
     String name;
     private final String pmedicine;
-    medicine(String pmedicine){
+    
+    public medicine(String pmedicine){
         this.pmedicine = pmedicine;
+    }
+
+    medicine() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getName() {
