@@ -18,7 +18,7 @@ public  class userFactory {
          return new PatientConcrete( Age,gender, UserID,Address,  Name,password,ID_d, ID_s);
       
       } else if(Type.equalsIgnoreCase("AdminConcrete")){
-         return new PatientConcrete( UserID,Address, Name,password,ID_d, ID_s);
+         return new  PatientConcrete( UserID,Address, Name,password,ID_d, ID_s);
       }
      return  null;
 }

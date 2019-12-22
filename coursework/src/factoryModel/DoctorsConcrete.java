@@ -5,7 +5,7 @@
  */
 package factoryModel;
 
-import java.util.LinkedList;
+
 import java.util.Scanner;
 
 /**
@@ -65,17 +65,15 @@ public class DoctorsConcrete extends usersConcrete {
 
     
    
+}
+
 
    
-    /**
-     *
-     */
-    public void writeanit(){
-     LinkedList<medicine> newmed=new LinkedList<>();
-      medicin=reeder.nextLine();
-    
+   
+   
+   
           
-    }
+    
     
    
-     }
+     

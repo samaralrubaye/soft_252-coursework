@@ -15,7 +15,10 @@ public class DoctorManagment {
      private ArrayList<String> Doctor =new ArrayList<>();
      
      public ArrayList<String> GetList(){
+         return null;
          
-         return newDoctor;
+        
      }
 }
+
+
