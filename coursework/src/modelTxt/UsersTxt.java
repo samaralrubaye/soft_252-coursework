@@ -6,13 +6,13 @@
 package modelTxt;
 
 
-import factoryModel.SecretaryConcreate;
-import factoryModel.PatientConcrete;
-import factoryModel.DoctorsConcrete;
-import factoryModel.adminConcrete;
-import factoryModel.medicine;
-import factoryModel.userFactory;
-import factoryModel.usersConcrete;
+import Models.SecretaryConcreate;
+import Models.PatientConcrete;
+import Models.DoctorsConcrete;
+import Models.adminConcrete;
+import Models.medicine;
+import Models.userFactory;
+import Models.usersConcrete;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
