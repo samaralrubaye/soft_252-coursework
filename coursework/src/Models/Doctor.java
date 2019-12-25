@@ -25,7 +25,7 @@ public class Doctor extends User {
      * @param txtFormat - the persisted text format
      * @return new Patient
      */
-    private static Doctor newDoctor(String txtFormat) {
+    public static Doctor newDoctor(String txtFormat) {
         String[] tokens = txtFormat.split(",");
         return new Doctor(
                 tokens[0],

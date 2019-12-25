@@ -8,7 +8,7 @@ package models;
 /**
  * Class for creating new Administrator User
  */
-public class Administrator extends User {
+public class Administrator extends User implements IPersistable {
     
     /**
      * Constructor for creating an Administrator User
@@ -26,7 +26,7 @@ public class Administrator extends User {
      * @param txtFormat - the persisted text format
      * @return new Patient
      */
-    private static Administrator newAdministrator(String txtFormat) {
+    public static Administrator newAdministrator(String txtFormat) {
         String[] tokens = txtFormat.split(",");
         return new Administrator(
                 tokens[0],

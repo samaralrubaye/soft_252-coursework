@@ -5,7 +5,6 @@
  */
 package Models;
 
-import models.User;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,9 +15,9 @@ import org.junit.Test;
  *
  * @author engsa
  */
-public class UserTest {
+public class PrescriptionMedicineTest {
     
-    public UserTest() {
+    public PrescriptionMedicineTest() {
     }
     
     @BeforeClass
@@ -38,29 +37,27 @@ public class UserTest {
     }
 
     @Test
+    public void testNewPrescriptionMedicine() {
+    }
+
+    @Test
+    public void testGetMedicineUUID() {
+    }
+
+    @Test
+    public void testGetUUID() {
+    }
+
+    @Test
+    public void testGetPrescriptionUUID() {
+    }
+
+    @Test
+    public void testGetMedicineQuantity() {
+    }
+
+    @Test
     public void testToPersistableTxtFormat() {
-    }
-
-    public class UserImpl extends User {
-
-        public UserImpl() {
-            super("", "", "", "");
-        }
-
-        public String toPersistableTxtFormat() {
-            return "";
-        }
-    }
-
-    public class UserImpl extends User {
-
-        public UserImpl() {
-            super("", "", "", "");
-        }
-
-        public String toPersistableTxtFormat() {
-            return "";
-        }
     }
     
 }

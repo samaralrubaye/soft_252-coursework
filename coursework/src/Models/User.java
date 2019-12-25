@@ -6,8 +6,7 @@
 package models;
 
 /**
- * Applying Decorator pattern by creating a
- * base abstract User class for all other types of Users in the system
+ * Base class for all Users in the system
  */
 public abstract class User implements IPersistable {
     protected String givenName;
@@ -27,6 +26,39 @@ public abstract class User implements IPersistable {
         this.lastName = lastName;
         this.address = address;
         this.uuid = uuid;
+    }
+    
+    
+    /**
+     * Getter method for the given name of the User
+     * @return given name of the User
+     */
+    public String getGivenName() {
+        return this.givenName;
+    }
+
+    /**
+     * Getter method for the last name of the User
+     * @return last name of the User
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    /**
+     * Getter method for the User address
+     * @return address of the User
+     */
+    public String getAddress() {
+        return this.address;
+    }
+
+    /**
+     * Getter method for the User unique identifier
+     * @return the unique identifier for the User
+     */
+    public String getUUID() {
+        return this.uuid;
     }
     
     /**

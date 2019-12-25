@@ -25,7 +25,7 @@ public class Secretary extends User {
      * @param txtFormat - the persisted text format
      * @return new Patient
      */
-    private static Secretary newSecretary(String txtFormat) {
+    public static Secretary newSecretary(String txtFormat) {
         String[] tokens = txtFormat.split(",");
         return new Secretary(
                 tokens[0],

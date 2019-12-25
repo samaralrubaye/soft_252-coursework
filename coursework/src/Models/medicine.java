@@ -53,7 +53,7 @@ public class Medicine implements IPersistable {
      * Getter method for the unique identifier of this Medicine
      * @return String representing the unique identifier of this Medicine
      */
-    public String getUuid() {
+    public String getUUID() {
         return uuid;
     }
 

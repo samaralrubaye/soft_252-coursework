@@ -6,8 +6,8 @@
 package models;
 
 /**
+ *
  * interface for Objects that can be persisted in readable format
- * 
  */
 public interface IPersistable {
     public String toPersistableTxtFormat();

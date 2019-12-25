@@ -39,7 +39,7 @@ public class Prescription implements IPersistable {
      * Getter for the unique identifier of this Prescription
      * @return the unique identifier for this Prescription
      */
-    public String getUuid() {
+    public String getUUID() {
         return this.uuid;
     }
 

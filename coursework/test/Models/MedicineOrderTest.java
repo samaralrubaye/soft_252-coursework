@@ -5,20 +5,20 @@
  */
 package Models;
 
-import models.User;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author engsa
  */
-public class UserTest {
+public class MedicineOrderTest {
     
-    public UserTest() {
+    public MedicineOrderTest() {
     }
     
     @BeforeClass
@@ -38,29 +38,39 @@ public class UserTest {
     }
 
     @Test
+    public void testNewMedicineOrder() {
+    }
+
+    @Test
+    public void testGetDoctorUUID() {
+    }
+
+    @Test
+    public void testGetUUID() {
+    }
+
+    @Test
+    public void testGetMedicineName() {
+    }
+
+    @Test
+    public void testGetMedicineDescription() {
+    }
+
+    @Test
+    public void testGetQuantity() {
+    }
+
+    @Test
+    public void testIsCompleted() {
+    }
+
+    @Test
+    public void testSetCompleted() {
+    }
+
+    @Test
     public void testToPersistableTxtFormat() {
-    }
-
-    public class UserImpl extends User {
-
-        public UserImpl() {
-            super("", "", "", "");
-        }
-
-        public String toPersistableTxtFormat() {
-            return "";
-        }
-    }
-
-    public class UserImpl extends User {
-
-        public UserImpl() {
-            super("", "", "", "");
-        }
-
-        public String toPersistableTxtFormat() {
-            return "";
-        }
     }
     
 }
