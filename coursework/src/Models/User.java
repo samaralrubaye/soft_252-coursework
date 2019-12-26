@@ -13,6 +13,7 @@ public abstract class User implements IPersistable {
     protected String lastName;
     protected String address;
     protected String uuid;
+    protected String password;
     
     /**
      * Constructor for creating a user
@@ -21,11 +22,20 @@ public abstract class User implements IPersistable {
      * @param address - user address
      * @param uuid - user unique identification number
      */
-    public User(String uuid, String givenName, String lastName, String address) {
+    public User(String uuid, String givenName, String lastName, String address, String password) {
         this.givenName = givenName;
         this.lastName = lastName;
         this.address = address;
         this.uuid = uuid;
+        this.password = password;
+    }
+    
+    /**
+     * Getter method for the user password
+     * @return - String representing the user password 
+     */
+    public String getPassword() {
+        return this.password;
     }
     
     

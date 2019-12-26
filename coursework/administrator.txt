@@ -1,4 +1,4 @@
-A_0001,James,Bond,234, James Boulevard
-A_0002,Janet,Doe,456, Allen James Avenue
-A_0003,John,Doe,The Moon
-A_0004,Jimmy,Carter,White House of the USA
+A_0001~James~Bond~234, James Boulevard~secret_password
+A_0002~Janet~Doe~456, Allen James Avenue~secret_password
+A_0003~John~Doe~The Moon~secret_password
+A_0004~Jimmy~Carter~White House of the USA~secret_password

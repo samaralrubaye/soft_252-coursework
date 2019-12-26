@@ -6,6 +6,8 @@
 package models;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -114,6 +116,7 @@ public class DatastoreHelper {
     public static DatastoreHelper getSingletonInstance() {
         if (null == datastoreHelperSingleton) {
             datastoreHelperSingleton = new DatastoreHelper();
+            datastoreHelperSingleton.loadAllData();
         }
         
         return datastoreHelperSingleton;
@@ -240,9 +243,9 @@ public class DatastoreHelper {
      * Method to load all Administrator from file
      * @return Map of unique identifier -> Administrator
      */
-    public Map<String, Administrator> readAdministrators() {
+    public Map<String, Administrator> readAdministrators() throws FileNotFoundException {
         this.administrators = new HashMap<>();
-        Scanner sc = new Scanner(administratorTxt);
+        Scanner sc = new Scanner(new File(administratorTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -258,9 +261,9 @@ public class DatastoreHelper {
      * Method to load all AdministratorFeedback from file
      * @return Map of unique identifier -> AdministratorFeedback
      */
-    public Map<String, AdministratorFeedback> readAdministratorFeedback() {
+    public Map<String, AdministratorFeedback> readAdministratorFeedback() throws FileNotFoundException {
         this.administratorFeedback = new HashMap<>();
-        Scanner sc = new Scanner(administratorFeedbackTxt);
+        Scanner sc = new Scanner(new File(administratorFeedbackTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -276,9 +279,9 @@ public class DatastoreHelper {
      * Method to load all Appointment from file
      * @return Map of unique identifier -> Appointment
      */
-    public Map<String, Appointment> readAppointments() {
+    public Map<String, Appointment> readAppointments() throws FileNotFoundException {
         this.appointments = new HashMap<>();
-        Scanner sc = new Scanner(appointmentTxt);
+        Scanner sc = new Scanner(new File(appointmentTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -294,9 +297,9 @@ public class DatastoreHelper {
      * Method to load all Doctor from file
      * @return Map of unique identifier -> Doctor
      */
-    public Map<String, Doctor> readDoctors() {
+    public Map<String, Doctor> readDoctors() throws FileNotFoundException {
         this.doctors = new HashMap<>();
-        Scanner sc = new Scanner(doctorTxt);
+        Scanner sc = new Scanner(new File(doctorTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -312,9 +315,9 @@ public class DatastoreHelper {
      * Method to load all DoctorRating from file
      * @return Map of unique identifier -> DoctorRating
      */
-    public Map<String, DoctorRating> readDoctorRatings() {
+    public Map<String, DoctorRating> readDoctorRatings() throws FileNotFoundException {
         this.doctorRatings = new HashMap<>();
-        Scanner sc = new Scanner(doctorRatingTxt);
+        Scanner sc = new Scanner(new File(doctorRatingTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -330,9 +333,9 @@ public class DatastoreHelper {
      * Method to load all Medicine from file
      * @return Map of unique identifier -> Medicine
      */
-    public Map<String, Medicine> readMedicines() {
+    public Map<String, Medicine> readMedicines() throws FileNotFoundException {
         this.medicines = new HashMap<>();
-        Scanner sc = new Scanner(medicineTxt);
+        Scanner sc = new Scanner(new File(medicineTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -348,9 +351,9 @@ public class DatastoreHelper {
      * Method to load all MedicineOrder from file
      * @return Map of unique identifier -> MedicineOrder
      */
-    public Map<String, MedicineOrder> readMedicineOrders() {
+    public Map<String, MedicineOrder> readMedicineOrders() throws FileNotFoundException {
         this.medicineOrders = new HashMap<>();
-        Scanner sc = new Scanner(medicineOrderTxt);
+        Scanner sc = new Scanner(new File(medicineOrderTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -366,11 +369,12 @@ public class DatastoreHelper {
      * Method to load all Patients from file
      * @return Map of unique identifier -> Patient
      */
-    public Map<String, Patient> readPatients() {
+    public Map<String, Patient> readPatients() throws FileNotFoundException {
         this.patients = new HashMap<>();
-        Scanner sc = new Scanner(patientTxt);
+        Scanner sc = new Scanner(new File(patientTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
+            System.out.println("txtFormat: " + txtFormat);
             if (!txtFormat.trim().isEmpty()) {
                 Patient p = Patient.newPatient(txtFormat);
                 this.patients.put(p.getUUID(), p);
@@ -385,9 +389,9 @@ public class DatastoreHelper {
      * Method to load all PatientHistory from file
      * @return Map of unique identifier -> PatientHistory
      */
-    public Map<String, PatientHistory> readPatientHistories() {
+    public Map<String, PatientHistory> readPatientHistories() throws FileNotFoundException {
         this.patientHistories = new HashMap<>();
-        Scanner sc = new Scanner(patientHistoryTxt);
+        Scanner sc = new Scanner(new File(patientHistoryTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -404,9 +408,9 @@ public class DatastoreHelper {
      * Method to load all Prescription from file
      * @return Map of unique identifier -> Prescription
      */
-    public Map<String, Prescription> readPrescriptions() {
+    public Map<String, Prescription> readPrescriptions() throws FileNotFoundException {
         this.prescriptions = new HashMap<>();
-        Scanner sc = new Scanner(prescriptionTxt);
+        Scanner sc = new Scanner(new File(prescriptionTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -423,9 +427,9 @@ public class DatastoreHelper {
      * Method to load all PrescriptionMedicine from file
      * @return Map of unique identifier -> PrescriptionMedicine
      */
-    public Map<String, PrescriptionMedicine> readPrescriptionMedicines() {
+    public Map<String, PrescriptionMedicine> readPrescriptionMedicines() throws FileNotFoundException {
         this.prescriptionMedicines = new HashMap<>();
-        Scanner sc = new Scanner(prescriptionMedicineTxt);
+        Scanner sc = new Scanner(new File(prescriptionMedicineTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -442,9 +446,9 @@ public class DatastoreHelper {
      * Method to load all Secretary from file
      * @return Map of unique identifier -> Secretary
      */
-    public Map<String, Secretary> readSecretaries() {
+    public Map<String, Secretary> readSecretaries() throws FileNotFoundException {
         this.secretaries = new HashMap<>();
-        Scanner sc = new Scanner(secretaryTxt);
+        Scanner sc = new Scanner(new File(secretaryTxt));
         while(sc.hasNextLine()) {
             String txtFormat = sc.nextLine();
             if (!txtFormat.trim().isEmpty()) {
@@ -454,6 +458,87 @@ public class DatastoreHelper {
         }
         
         return this.secretaries;
+    }
+    
+    /**
+     * Method to load all the data from the text files into memory
+     */
+    public void loadAllData() {
+        try {
+            this.readPatients();
+            this.readDoctors();
+            this.readSecretaries();
+            this.readAdministrators();
+            this.readAppointments();
+            this.readMedicines();
+            this.readPrescriptions();
+            this.readMedicineOrders();
+            this.readPatientHistories();
+            this.readDoctorRatings();
+            this.readAdministratorFeedback();
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("fnfe: " + fnfe);
+        }
+    }
+
+    /**
+     * Method gets an Administrator by userID and password
+     * @param userID - unique id of the administrator we want
+     * @param password - password of the administrator we want
+     * @return an Administrator object or null if an Administrator with the user id and password doesn't exist
+     */
+    public Administrator getAdmin(String userID, String password) {
+        Administrator admin = this.administrators.get(userID);
+        if (admin != null & admin.getPassword().equals(password)) {
+            return admin;
+        }
+        
+        return null;
+    }
+
+    /**
+     * Method gets a Doctor by userID and password
+     * @param userID - unique id of the administrator we want
+     * @param password - password of the administrator we want
+     * @return a Doctor object or null if a Doctor with the user id and password doesn't exist
+     */
+    public Doctor getDoctor(String userID, String password) {
+        Doctor doctor = this.doctors.get(userID);
+        if (doctor != null & doctor.getPassword().equals(password)) {
+            return doctor;
+        }
+        
+        return null;
+    }
+
+    /**
+     * Method gets a Secretary by userID and password
+     * @param userID - unique id of the administrator we want
+     * @param password - password of the administrator we want
+     * @return an Secretary object or null if a Secretary with the user id and password doesn't exist
+     */
+    public Secretary getSecretary(String userID, String password) {
+        Secretary sec = this.secretaries.get(userID);
+        if (sec != null & sec.getPassword().equals(password)) {
+            return sec;
+        }
+        
+        return null;
+    }
+
+    /**
+     * Method gets a Patient by userID and password
+     * @param userID - unique id of the administrator we want
+     * @param password - password of the administrator we want
+     * @return a Patient object or null if a Patient with the user id and password doesn't exist
+     */
+    public Patient getPatient(String userID, String password) {
+        Patient patient = this.patients.get(userID);
+        if (patient != null & patient.getPassword().equals(password)) {
+            return patient;
+        }
+        
+        return null;
     }
     
 }
