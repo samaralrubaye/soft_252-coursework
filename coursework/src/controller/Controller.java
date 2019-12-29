@@ -7,8 +7,10 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import models.Administrator;
 import models.*;
+import view.MainFrame;
 
 /**
  *
@@ -40,5 +42,62 @@ public class Controller {
     
     public List<Doctor> getDoctorsList() {
         return new ArrayList<>(this.modelHelper.getDoctors().values());
+    }
+    
+    public double getDoctorRating(String doctorUUID) {
+        int totalRecords = 0;
+        int totalRating = 0;
+        for (Map.Entry<String, DoctorRating> rating : this.modelHelper.getDoctorRatings().entrySet()) {
+            if (rating.getKey().equals(doctorUUID))  {
+                totalRecords++;
+                totalRating += rating.getValue().getRating();
+            }
+        }
+        
+        if (totalRecords == 0 || totalRating == 0) {
+            return 0;
+        }
+        
+        return (totalRating / totalRecords);
+    }
+    
+    public void persistData() {
+        this.modelHelper.persistAllData();
+    }
+
+    public void submitAppointmentRequest(AppointmentRequest ar) {
+        this.modelHelper.saveAppointmentRequest(ar);
+    }
+
+    public void requestAccountTermination(String uuid) {
+        this.modelHelper.saveAccountTerminationRequest(new AccountTerminationRequest(uuid, false));
+    }
+
+    public Prescription getPrescription(String prescriptionUUID) {
+        return this.modelHelper.getPrescriptions().get(prescriptionUUID);
+    }
+
+    public List<PatientHistory> getPatientHistoryList(String uuid) {
+        List<PatientHistory> list = new ArrayList<>();
+        for (Map.Entry<String, PatientHistory> record : this.modelHelper.getPatientHistories().entrySet()) {
+            if (record.getKey().equals(uuid)) {
+                list.add(record.getValue());
+            }
+        }
+        return list;
+    }
+
+    public List<Appointment> getPatientAppointmentList(String uuid) {
+        List<Appointment> list = new ArrayList<>();
+        for (Map.Entry<String, Appointment> record : this.modelHelper.getAppointments().entrySet()) {
+            if (record.getKey().equals(uuid)) {
+                list.add(record.getValue());
+            }
+        }
+        return list;
+    }
+
+    public Doctor getDoctor(String doctorUUID) {
+        return this.modelHelper.getDoctors().get(doctorUUID);
     }
 }

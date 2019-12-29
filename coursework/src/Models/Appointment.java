@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * Class for creating an Appointment object
  */
 public class Appointment implements IPersistable {
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
+    public static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
     private final Date date;
     private final String uuid;
