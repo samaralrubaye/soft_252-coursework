@@ -754,5 +754,47 @@ public class DatastoreHelper {
     public void saveAccountTerminationRequest(AccountTerminationRequest accountTerminationRequest) {
         this.accountTerminationRequests.add(accountTerminationRequest);
     }
+
+    /**
+     * Method to create an add a new Administrator to the data store
+     * @param givenName - given name of the administrator to be created
+     * @param lastName - last name of the administrator to be created
+     * @param address - address of the administrator to be created
+     * @param password - password of the administrator to be created
+     * @return new Administrator created and already added to the  data store
+     */
+    public Administrator createAdministrator(String givenName, String lastName, String address, String password) {
+        int nextID = this.administrators.size() + 1;
+        String uuid = String.format("A_%04d", nextID);
+        Administrator admin = new Administrator(uuid, givenName, lastName, address, password);
+        this.administrators.put(uuid, admin);
+        return admin;
+    }
+
+    public void deleteDoctor(String uuid) {
+        this.doctors.remove(uuid);
+    }
+
+    public void deleteSecretary(String uuid) {
+        this.secretaries.remove(uuid);
+    }
+
+    public void createDoctor(String givenName, String lastName, String address, String password) {
+        int nextID = this.doctors.size() + 1;
+        String uuid = String.format("D_%04d", nextID);
+        this.doctors.put(uuid, new Doctor(uuid, givenName, lastName, address, password));
+    }
+
+    public void createSecretary(String givenName, String lastName, String address, String password) {
+        int nextID = this.secretaries.size() + 1;
+        String uuid = String.format("S_%04d", nextID);
+        this.secretaries.put(uuid, new Secretary(uuid, givenName, lastName, address, password));
+    }
+
+    public void createAdministratorFeedback(String doctorUUID, String feedback) {
+        int nextID = this.administratorFeedback.size() + 1;
+        String uuid = String.format("AF_%04d", nextID);
+        this.administratorFeedback.put(uuid, new AdministratorFeedback(uuid, doctorUUID, false, feedback));
+    }
     
 }

@@ -10,24 +10,27 @@ package models;
  */
 public class DoctorRating implements IPersistable {
     
-    private final int rating;
+    private final double rating;
     private final String doctorUUID;
     private final String patientUUID;
     private final String uuid;
+    private final String comment;
     
     /**
      * Constructor for creating a new Doctor rating
      * @param uuid - unique identifier of the rating
      * @param patientUUID - unique identifier of the patient who gave the Doctor rating
      * @param doctorUUID - unique identifier of the doctor owning the rating
+     * @param comment - comment about this rating
      * @param rating - rating value (1 - 5)
      */
-    public DoctorRating(String uuid, String patientUUID, String doctorUUID, int rating) {
+    public DoctorRating(String uuid, String patientUUID, String doctorUUID, String comment, double rating) {
         super();
         this.uuid = uuid;
         this.doctorUUID = doctorUUID;
         this.rating = rating;
         this.patientUUID = patientUUID;
+        this.comment = comment;
     }
     
     /**
@@ -38,10 +41,11 @@ public class DoctorRating implements IPersistable {
     public static DoctorRating newDoctorRating(String persistedTxt) {
         String[] tokens = persistedTxt.split(",");
         return new DoctorRating(
-                tokens[0],
-                tokens[1],
-                tokens[2],
-                Integer.valueOf(tokens[3])
+                tokens[0].trim(),
+                tokens[1].trim(),
+                tokens[2].trim(),
+                tokens[3].trim(),
+                Double.valueOf(tokens[4])
         );
     }
     
@@ -65,7 +69,7 @@ public class DoctorRating implements IPersistable {
      * Getter for the rating value
      * @return Integer representing the rating value
      */
-    public int getRating() {
+    public double getRating() {
         return this.rating;
     }
     
@@ -76,10 +80,18 @@ public class DoctorRating implements IPersistable {
     public String getUUID() {
         return this.uuid;
     }
+    
+    /**
+     * Getter for the comment of this rating
+     * @return comment associated with this rating
+     */
+    public String getComment() {
+        return this.comment;
+    }
 
     @Override
     public String toPersistableTxtFormat() {
-        return String.format("%s,%s,%s,%d", this.uuid, this.patientUUID, this.uuid, this.rating);
+        return String.format("%s~%s~%s~%s~%f", this.uuid, this.patientUUID, this.uuid, this.comment, this.rating);
     }
     
 }

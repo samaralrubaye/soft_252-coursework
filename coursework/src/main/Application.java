@@ -6,14 +6,7 @@
 package main;
 
 import controller.Controller;
-import java.util.ArrayList;
-import java.util.List;
-import models.Administrator;
 import models.DatastoreHelper;
-import models.Doctor;
-import models.IPersistable;
-import models.Patient;
-import models.Secretary;
 import view.MainFrame;
 
 /**

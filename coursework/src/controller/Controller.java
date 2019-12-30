@@ -100,4 +100,46 @@ public class Controller {
     public Doctor getDoctor(String doctorUUID) {
         return this.modelHelper.getDoctors().get(doctorUUID);
     }
+
+    public Administrator createAdmin(String givenName, String lastName, String address, String password) {
+        return this.modelHelper.createAdministrator(givenName, lastName, address, password);
+    }
+
+    public List<Secretary> getSecretariesList() {
+        return new ArrayList<>(this.modelHelper.getSecretaries().values());
+    }
+
+    public void deleteDoctor(String uuid) {
+        this.modelHelper.deleteDoctor(uuid);
+    }
+
+    public void deleteSecretary(String uuid) {
+        this.modelHelper.deleteSecretary(uuid);
+    }
+
+    public void createDoctor(String givenName, String lastName, String address, String password) {
+        this.modelHelper.createDoctor(givenName, lastName, address, password);
+    }
+
+    public void createSecretary(String givenName, String lastName, String address, String password) {
+        this.modelHelper.createSecretary(givenName, lastName, address, password);
+    }
+
+    public Patient getPatient(String patientUUID) {
+        return this.modelHelper.getPatients().get(patientUUID);
+    }
+
+    public List<DoctorRating> getDoctorRatings(String docUUID) {
+         List<DoctorRating> list = new ArrayList<>();
+        for (Map.Entry<String, DoctorRating> record : this.modelHelper.getDoctorRatings().entrySet()) {
+            if (record.getValue().getDoctorUUID().equals(docUUID)) {
+                list.add(record.getValue());
+            }
+        }
+        return list;
+    }
+
+    public void createAdministratorFeedback(String doctorUUID, String feedback) {
+        this.modelHelper.createAdministratorFeedback(doctorUUID, feedback);
+    }
 }
