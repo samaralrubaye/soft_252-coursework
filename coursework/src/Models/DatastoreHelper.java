@@ -40,6 +40,7 @@ public class DatastoreHelper {
     public static final String secretaryTxt = "secretary.txt";
     public static final String appointmentRequestTxt = "appointment_request.txt";
     public static final String accountTerminationRequestTxt = "account_termination_request.txt";
+    public static final String patientCreationRequestTxt = "patient_creation_request.txt";
     
     /**
      * Map of all Administrators in the application. It maps their unique id to the actual Administrator for easier searching
@@ -106,6 +107,11 @@ public class DatastoreHelper {
     private HashMap<String, PrescriptionMedicine> prescriptionMedicines;
     
     /**
+     * Map of all PatientCreationRequest in the application. It maps their unique id to the PatientCreationRequest for easier searching
+     */
+    private HashMap<String, PatientCreationRequest> patientCreationRequests;
+    
+    /**
      * List of all appointment requests
      */
     private List<AppointmentRequest> appointmentRequests;
@@ -131,8 +137,10 @@ public class DatastoreHelper {
         this.patients = new HashMap<>();
         this.doctors = new HashMap<>();
         this.secretaries = new HashMap<>();
+        this.patientCreationRequests = new HashMap<>();
         this.administrators = new HashMap<>();
         this.appointmentRequests = new ArrayList<>();
+        this.accountTerminationRequests = new ArrayList<>();
     }
     
     /**
@@ -263,6 +271,14 @@ public class DatastoreHelper {
     }
     
     /**
+     * Getter method for the PatientCreationRequests
+     * @return List of all PatientCreationRequest
+     */
+    public HashMap<String, PatientCreationRequest> getPatientCreationRequests() {
+        return this.patientCreationRequests;
+    }
+    
+    /**
      * Helper method for saving a list of Persistable objects
      * @param fileName - name of the file where the objects are written to.
      * @param persistables - the IPersistable list to be saved.
@@ -328,6 +344,9 @@ public class DatastoreHelper {
          
          persistables = new ArrayList<>(this.accountTerminationRequests);
          this.savePersistables(accountTerminationRequestTxt, persistables);
+         
+         persistables = new ArrayList<>(this.patientCreationRequests.values());
+         this.savePersistables(patientCreationRequestTxt, persistables);
     }
     
     /**
@@ -661,6 +680,29 @@ public class DatastoreHelper {
     }
     
     /**
+     * Method to load all PatientCreationRequests from file
+     * @return Map of unique identifier -> PatientCreationRequest
+     */
+    public Map<String, PatientCreationRequest> readPatientCreationRequests() {
+        this.patientCreationRequests = new HashMap<>();
+        Scanner sc;
+        try {
+            sc = new Scanner(new File(patientCreationRequestTxt));
+            while(sc.hasNextLine()) {
+                String txtFormat = sc.nextLine();
+                if (!txtFormat.trim().isEmpty()) {
+                    PatientCreationRequest pcr = PatientCreationRequest.newPatientCreationRequest(txtFormat);
+                    this.patientCreationRequests.put(pcr.getUUID(), pcr);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DatastoreHelper.class.getName()).log(Level.WARNING, null, ex);
+        }
+        
+        return this.patientCreationRequests;
+    }
+    
+    /**
      * Method to load all the data from the text files into memory
      */
     public void loadAllData() {
@@ -677,6 +719,7 @@ public class DatastoreHelper {
         this.readAdministratorFeedback();
         this.readAppointmentRequests();
         this.readAccountTerminationRequests();
+        this.readPatientCreationRequests();
     }
 
     /**
@@ -752,6 +795,10 @@ public class DatastoreHelper {
      * @param accountTerminationRequest  - AccountTerminationRequest to be saved
      */
     public void saveAccountTerminationRequest(AccountTerminationRequest accountTerminationRequest) {
+        if (this.accountTerminationRequests.contains(accountTerminationRequest)) {
+            System.out.println("Account  Termination  Request already exists for uuid "  + accountTerminationRequest.getPatientUUID());
+            return;
+        }
         this.accountTerminationRequests.add(accountTerminationRequest);
     }
 
@@ -795,6 +842,27 @@ public class DatastoreHelper {
         int nextID = this.administratorFeedback.size() + 1;
         String uuid = String.format("AF_%04d", nextID);
         this.administratorFeedback.put(uuid, new AdministratorFeedback(uuid, doctorUUID, false, feedback));
+    }
+
+    public void createPatientCreationRequest(String givenName, String lastName, String address, String password, String gender, int age) {
+        int nextID = this.patientCreationRequests.size() + 1;
+        String uuid = String.format("PCR_%04d", nextID);
+        this.patientCreationRequests.put(uuid, new PatientCreationRequest(uuid, givenName, lastName, address, gender, password, age));
+    }
+
+    public void createPatient(PatientCreationRequest pcr) {
+        this.patientCreationRequests.remove(pcr.getUUID());
+        int nextID = this.patients.size() + 1;
+        String uuid = String.format("P_%04d", nextID);
+        this.patients.put(uuid, new Patient(uuid, pcr.getGivenName(), pcr.getLastName(), pcr.getAddress(), pcr.getGender(), pcr.getPassword(), pcr.getAge()));
+    }
+
+    public void removePatientAccount(AccountTerminationRequest atr) {
+        System.out.println("Removing  patient: " + atr.getPatientUUID());
+        System.out.println("this.patients == null ? "  + (this.patients == null));
+        this.patients.remove(atr.getPatientUUID());
+        boolean  removed = this.accountTerminationRequests.remove(atr);
+        System.out.println("removed Patient? " + removed); 
     }
     
 }

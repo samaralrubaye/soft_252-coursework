@@ -45,6 +45,22 @@ public class Patient extends User {
                 Integer.valueOf(tokens[6])
         );
     }
+    
+    /**
+     * Getter method for the Patient age
+     * @return age of the Patient
+     */
+    public int getAge() {
+        return this.age;
+    }
+
+    /**
+     * Getter method for the gender of the Patient
+     * @return gender of the Patient
+     */
+    public String getGender() {
+        return this.gender;
+    }
 
     @Override
     public String toPersistableTxtFormat() {

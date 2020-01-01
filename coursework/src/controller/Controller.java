@@ -6,6 +6,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import models.Administrator;
@@ -130,7 +131,7 @@ public class Controller {
     }
 
     public List<DoctorRating> getDoctorRatings(String docUUID) {
-         List<DoctorRating> list = new ArrayList<>();
+        List<DoctorRating> list = new ArrayList<>();
         for (Map.Entry<String, DoctorRating> record : this.modelHelper.getDoctorRatings().entrySet()) {
             if (record.getValue().getDoctorUUID().equals(docUUID)) {
                 list.add(record.getValue());
@@ -141,5 +142,33 @@ public class Controller {
 
     public void createAdministratorFeedback(String doctorUUID, String feedback) {
         this.modelHelper.createAdministratorFeedback(doctorUUID, feedback);
+    }
+
+    public void createPatientCreationRequest(String givenName, String lastName, String address,  String password, String gender, int age) {
+        this.modelHelper.createPatientCreationRequest(givenName, lastName, address, password, gender, age);           
+    }
+
+    public void loadAllData() {
+        this.modelHelper.loadAllData();
+    }
+
+    public List<PatientCreationRequest> getPatientCreationRequestList() {
+        List<PatientCreationRequest> list = new ArrayList<>();
+        for (Map.Entry<String, PatientCreationRequest> record : this.modelHelper.getPatientCreationRequests().entrySet()) {
+            list.add(record.getValue());
+        }
+        return list;
+    }
+
+    public void approvePatientAccountCreation(PatientCreationRequest pcr) {
+        this.modelHelper.createPatient(pcr);
+    }
+
+    public List<AccountTerminationRequest> getAccountTerminationRequests() {
+        return this.modelHelper.getAccountTerminationRequests();
+    }
+
+    public void approvePatientAccountRemoval(AccountTerminationRequest atr) {
+        this.modelHelper.removePatientAccount(atr);
     }
 }

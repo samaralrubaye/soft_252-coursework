@@ -5,6 +5,8 @@
  */
 package models;
 
+import java.util.Objects;
+
 /**
  *
  * Class for creating AccountTerminationRequest objects
@@ -56,5 +58,21 @@ public class AccountTerminationRequest implements IPersistable {
     @Override
     public String toPersistableTxtFormat() {
         return String.format("%s,%b", this.patientUUID, this.approved);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        
+        AccountTerminationRequest atr = (AccountTerminationRequest)obj;
+        return atr.getPatientUUID().equals(this.patientUUID);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.patientUUID);
+        return hash;
     }
 }

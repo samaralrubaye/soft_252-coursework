@@ -28,13 +28,13 @@ import models.*;
  * class containing the views
  */
 public class MainFrame extends javax.swing.JFrame {
-
     private Controller controller;
     private Patient patient;
     private Administrator administrator;
     private JPopupMenu patientsDoctorsPopupMenu;
     private JPopupMenu adminDoctorsPopupMenu;
     private JPopupMenu adminSecretariesPopupMenu;
+    private Secretary secretary;
     
 
     /**
@@ -159,7 +159,35 @@ public class MainFrame extends javax.swing.JFrame {
                 int currentRow = jtblAdminAllSecretaries.rowAtPoint(point);
                 jtblAdminAllSecretaries.setRowSelectionInterval(currentRow, currentRow);
             }
-        });  
+        }); 
+        
+        JPopupMenu jpmAccountCreation = new JPopupMenu();
+        JMenuItem jmiApproveAccountCreation = new JMenuItem("Approve Account");
+        jpmAccountCreation.add(jmiApproveAccountCreation);
+        jmiApproveAccountCreation.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PatientCreationRequest pcr = ((PatientCreationRequestTableModel)MainFrame.this.jtblPatientAccCreationRequests.getModel()).getRequest(MainFrame.this.jtblPatientAccCreationRequests.getSelectedRow());
+                MainFrame.this.controller.approvePatientAccountCreation(pcr);
+                MainFrame.this.jtblPatientAccCreationRequests.setModel(new PatientCreationRequestTableModel());
+                JOptionPane.showMessageDialog(MainFrame.this, "Account Approved", "Success",  JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        this.jtblPatientAccCreationRequests.setComponentPopupMenu(jpmAccountCreation);
+        
+        JPopupMenu jpmAccountRemoval = new JPopupMenu();
+        JMenuItem jmiApproveAccountRemoval = new JMenuItem("Approve Account Removal");
+        jmiApproveAccountRemoval.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AccountTerminationRequest atr = ((PatientRemovalRequestTableModel)MainFrame.this.jtblAccountRemovalRequests.getModel()).getRequest(MainFrame.this.jtblAccountRemovalRequests.getSelectedRow());
+                MainFrame.this.controller.approvePatientAccountRemoval(atr);
+                MainFrame.this.jtblAccountRemovalRequests.setModel(new PatientRemovalRequestTableModel());
+                JOptionPane.showMessageDialog(MainFrame.this, "Account Removed", "Success",  JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        jpmAccountRemoval.add(jmiApproveAccountRemoval);
+        this.jtblAccountRemovalRequests.setComponentPopupMenu(jpmAccountRemoval);
     }
 
     /**
@@ -180,11 +208,11 @@ public class MainFrame extends javax.swing.JFrame {
         jtfAddress = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jtfAge = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jbtnSubmitPatientAccountRequest = new javax.swing.JButton();
         jtfPassword = new javax.swing.JPasswordField();
-        jtfDOB = new javax.swing.JFormattedTextField();
+        jtfGender = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
         jpLRC = new javax.swing.JPanel();
         jBtnViewLogin = new javax.swing.JButton();
         jBtnViewRquestPatientAcc = new javax.swing.JButton();
@@ -283,6 +311,25 @@ public class MainFrame extends javax.swing.JFrame {
         jbtnAdminViewDoctorRatingSubmit = new javax.swing.JButton();
         jbtnAdminViewDoctorRatingCancel = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jpSecretaryRoot = new javax.swing.JPanel();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jtblPatientAccCreationRequests = new javax.swing.JTable();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jtblAccountRemovalRequests = new javax.swing.JTable();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jtblAppointmentsRequests = new javax.swing.JTable();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jtblMedicineCollection = new javax.swing.JTable();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        jtblMedicineStockRequests = new javax.swing.JTable();
+        jlblSecretaryName = new javax.swing.JLabel();
+        jBtnSecretaryLogOut = new javax.swing.JButton();
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -308,18 +355,23 @@ public class MainFrame extends javax.swing.JFrame {
 
         jtfAge.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("D.O.B");
-
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("PASSWORD");
 
         jbtnSubmitPatientAccountRequest.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jbtnSubmitPatientAccountRequest.setText("SUBMIT REQUEST");
+        jbtnSubmitPatientAccountRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSubmitPatientAccountRequestActionPerformed(evt);
+            }
+        });
 
-        jtfDOB.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        jtfGender.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+
+        jLabel31.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel31.setText("GENDER");
 
         javax.swing.GroupLayout jpSubmitPatientCreationRequestLayout = new javax.swing.GroupLayout(jpSubmitPatientCreationRequest);
         jpSubmitPatientCreationRequest.setLayout(jpSubmitPatientCreationRequestLayout);
@@ -328,11 +380,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jpSubmitPatientCreationRequestLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jpSubmitPatientCreationRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jpSubmitPatientCreationRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jpSubmitPatientCreationRequestLayout.createSequentialGroup()
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jtfDOB))
+                    .addGroup(jpSubmitPatientCreationRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jpSubmitPatientCreationRequestLayout.createSequentialGroup()
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
@@ -348,13 +396,17 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(jpSubmitPatientCreationRequestLayout.createSequentialGroup()
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jtfGivenName, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpSubmitPatientCreationRequestLayout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jpSubmitPatientCreationRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jbtnSubmitPatientAccountRequest, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
-                            .addComponent(jtfPassword))))
+                            .addComponent(jtfGivenName, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jpSubmitPatientCreationRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpSubmitPatientCreationRequestLayout.createSequentialGroup()
+                                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jtfGender, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpSubmitPatientCreationRequestLayout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jtfPassword))))
+                    .addComponent(jbtnSubmitPatientAccountRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(96, Short.MAX_VALUE))
         );
         jpSubmitPatientCreationRequestLayout.setVerticalGroup(
@@ -376,17 +428,17 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jpSubmitPatientCreationRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfAge, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpSubmitPatientCreationRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
-                    .addComponent(jtfDOB))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jpSubmitPatientCreationRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpSubmitPatientCreationRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfGender, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtnSubmitPatientAccountRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         jBtnViewLogin.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -1269,6 +1321,175 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jtblPatientAccCreationRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtblPatientAccCreationRequests.setToolTipText("");
+        jtblPatientAccCreationRequests.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane8.setViewportView(jtblPatientAccCreationRequests);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Account Creation Requests", jPanel7);
+
+        jtblAccountRemovalRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtblAccountRemovalRequests.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane9.setViewportView(jtblAccountRemovalRequests);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Account Removal Requests", jPanel8);
+
+        jtblAppointmentsRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtblAppointmentsRequests.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane10.setViewportView(jtblAppointmentsRequests);
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Appointment Requests", jPanel9);
+
+        jtblMedicineCollection.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtblMedicineCollection.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane11.setViewportView(jtblMedicineCollection);
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Medicine Collection", jPanel10);
+
+        jtblMedicineStockRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtblMedicineStockRequests.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane12.setViewportView(jtblMedicineStockRequests);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Medicine Stock Requests", jPanel11);
+
+        jlblSecretaryName.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
+        jlblSecretaryName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jBtnSecretaryLogOut.setText("Log Out");
+        jBtnSecretaryLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSecretaryLogOutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpSecretaryRootLayout = new javax.swing.GroupLayout(jpSecretaryRoot);
+        jpSecretaryRoot.setLayout(jpSecretaryRootLayout);
+        jpSecretaryRootLayout.setHorizontalGroup(
+            jpSecretaryRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpSecretaryRootLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jlblSecretaryName, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSecretaryRootLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane3))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSecretaryRootLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnSecretaryLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jpSecretaryRootLayout.setVerticalGroup(
+            jpSecretaryRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpSecretaryRootLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jlblSecretaryName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(jTabbedPane3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnSecretaryLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 23, 1000, 850));
         setMaximumSize(new java.awt.Dimension(1000, 850));
@@ -1337,8 +1558,11 @@ public class MainFrame extends javax.swing.JFrame {
         String[] userIDParts = userID.split("_");
         if (userIDParts.length != 2) {
             System.out.println("Invalid user ID detected; userID: " + userID);
+            JOptionPane.showMessageDialog(this, "Invalid user id", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        this.controller.persistData();
+        this.controller.loadAllData();
         
         char userType = userIDParts[0].toCharArray()[0];
         switch(userType) {
@@ -1346,6 +1570,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Administrator admin = this.controller.loginAdmin(userID, password);
                 if (admin != null) {
                     this.switchToAdminMode(admin);
+                    return;
                 }
                 break;
             }
@@ -1353,6 +1578,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Doctor doctor = this.controller.loginDoctor(userID, password);
                 if (doctor != null) {
                     this.switchToDoctorMode(doctor);
+                    return;
                 }
                 break;
             }
@@ -1360,6 +1586,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Patient patient = this.controller.loginPatient(userID, password);
                 if (patient != null) {
                     this.switchToPatientMode(patient);
+                    return;
                 }
                 break;
             }
@@ -1367,6 +1594,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Secretary secretary = this.controller.loginSecretary(userID, password);
                 if (secretary != null) {
                     this.switchToSecretaryMode(secretary);
+                    return;
                 }
                 break;
             }
@@ -1374,6 +1602,7 @@ public class MainFrame extends javax.swing.JFrame {
                 System.out.println(String.format("Failed login; userID: %s,  password: %s", userID,  password));
             }
         }
+        JOptionPane.showMessageDialog(this, "Login failed. Check password or user id", "Failed Login", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jBtnLoginActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1408,6 +1637,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.controller.requestAccountTermination(this.patient.getUUID());
+        JOptionPane.showMessageDialog(this, "Account Termination Request Submitted", "Success", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jbtnCreateAdminSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreateAdminSubmitActionPerformed
@@ -1477,8 +1707,30 @@ public class MainFrame extends javax.swing.JFrame {
         this.jdAdminViewDoctorRatings.dispose();
     }//GEN-LAST:event_jbtnAdminViewDoctorRatingCancelActionPerformed
 
+    private void jBtnSecretaryLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSecretaryLogOutActionPerformed
+        // TODO add your handling code here:
+        this.switchToLogin();
+    }//GEN-LAST:event_jBtnSecretaryLogOutActionPerformed
+
+    private void jbtnSubmitPatientAccountRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubmitPatientAccountRequestActionPerformed
+        try {
+            String givenName = this.jtfGivenName.getText();
+            String lastName = this.jtfLastName.getText();
+            String address = this.jtfAddress.getText();
+            String gender = this.jtfGender.getText();
+            String password = new String(this.jtfPassword.getPassword());
+            int age = Integer.valueOf(this.jtfAge.getText());
+            this.controller.createPatientCreationRequest(givenName, lastName, address, password, gender, age);
+            JOptionPane.showMessageDialog(this, "Your Patient account creation request was successfully submitted. Thank you!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Something went wrong. Fill all fields correctly and try again", "Error Occured", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_jbtnSubmitPatientAccountRequestActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnLogin;
+    private javax.swing.JButton jBtnSecretaryLogOut;
     private javax.swing.JButton jBtnViewCreateAdmin;
     private javax.swing.JButton jBtnViewLogin;
     private javax.swing.JButton jBtnViewRquestPatientAcc;
@@ -1509,28 +1761,39 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JButton jbtnAdminAddDoctor;
     private javax.swing.JButton jbtnAdminAddSecretary;
     private javax.swing.JButton jbtnAdminViewDoctorRatingCancel;
@@ -1551,23 +1814,30 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jlblAdminName;
     private javax.swing.JLabel jlblAdminViewDoctorRatingsDoctorName;
     private javax.swing.JLabel jlblPatientName;
+    private javax.swing.JLabel jlblSecretaryName;
     private javax.swing.JPanel jpAdminRoot;
     private javax.swing.JPanel jpCreateAdmin;
     private javax.swing.JPanel jpLRC;
     private javax.swing.JPanel jpLoginRootView;
     private javax.swing.JPanel jpPatientRoot;
+    private javax.swing.JPanel jpSecretaryRoot;
     private javax.swing.JPanel jpSubmitPatientCreationRequest;
     private javax.swing.JPasswordField jpfCreateAdminPassword;
     private javax.swing.JPasswordField jpfCreateDoctorPassword;
     private javax.swing.JPasswordField jpfCreateSecretaryPassword;
     private javax.swing.JPasswordField jpfPassword;
     private javax.swing.JTextArea jtaAdminViewDoctorRatingComment;
+    private javax.swing.JTable jtblAccountRemovalRequests;
     private javax.swing.JTable jtblAdminAllDoctors;
     private javax.swing.JTable jtblAdminAllSecretaries;
     private javax.swing.JTable jtblAdminViewDoctorRatings;
     private javax.swing.JTable jtblAllDoctors;
+    private javax.swing.JTable jtblAppointmentsRequests;
+    private javax.swing.JTable jtblMedicineCollection;
+    private javax.swing.JTable jtblMedicineStockRequests;
     private javax.swing.JTable jtblMyAppointments;
     private javax.swing.JTable jtblMyHistory;
+    private javax.swing.JTable jtblPatientAccCreationRequests;
     private javax.swing.JTextField jtfAddress;
     private javax.swing.JTextField jtfAdminViewDoctorRating;
     private javax.swing.JTextField jtfAdminViewDoctorRatingComment;
@@ -1584,7 +1854,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jtfCreateSecretaryAddress;
     private javax.swing.JTextField jtfCreateSecretaryGivenName;
     private javax.swing.JTextField jtfCreateSecretaryLastName;
-    private javax.swing.JFormattedTextField jtfDOB;
+    private javax.swing.JTextField jtfGender;
     private javax.swing.JTextField jtfGivenName;
     private javax.swing.JTextField jtfLastName;
     private javax.swing.JPasswordField jtfPassword;
@@ -1619,7 +1889,17 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void switchToSecretaryMode(Secretary secretary) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Switching to Secretary mode");
+        this.secretary = secretary;
+        this.jlblSecretaryName.setText(String.format("Welcome Secretary %s %s", secretary.getGivenName(), secretary.getLastName()));
+        
+        // set models
+        this.jtblPatientAccCreationRequests.setModel(new PatientCreationRequestTableModel());
+        this.jtblAccountRemovalRequests.setModel(new PatientRemovalRequestTableModel());
+        
+        // update view
+        this.setContentPane(this.jpSecretaryRoot);
+        this.revalidate();
     }
     
     
@@ -1674,7 +1954,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
     
-     class AdminDoctorTableModel extends AbstractTableModel {
+    class AdminDoctorTableModel extends AbstractTableModel {
         private final List<Doctor> doctors;
         AdminDoctorTableModel() {
             this.doctors = controller.getDoctorsList();
@@ -1912,6 +2192,116 @@ public class MainFrame extends javax.swing.JFrame {
                 case 0: return dr.getUUID();
                 case 1: return p.getGivenName() + " " + p.getLastName();
                 case 2: return String.format("%.2f / 5", dr.getRating());
+            }
+            return null;
+        }
+    }
+    
+    class PatientCreationRequestTableModel extends AbstractTableModel {
+        private final List<PatientCreationRequest> requests;
+        PatientCreationRequestTableModel() {
+            this.requests = controller.getPatientCreationRequestList();
+        }
+        
+        @Override
+        public int getRowCount() {
+            return this.requests.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 6;
+        }
+        
+        public PatientCreationRequest getRequest(int index) {
+            return this.requests.get(index);
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            switch (column) {
+                case 0: return "ID";
+                case 1: return "Given Name";
+                case 2: return "Last Name";
+                case 3: return "Address";
+                case 4: return "Age";
+                case 5: return "Gender";
+            }
+            return null;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            PatientCreationRequest request = this.requests.get(rowIndex);
+            switch (columnIndex) {
+                case 0: return request.getUUID();
+                case 1: return request.getGivenName();
+                case 2: return request.getLastName();
+                case 3: return request.getAddress();
+                case 4: return request.getAge();
+                case 5: return request.getGender();
+            }
+            return null;
+        }
+    }
+    
+    class PatientRemovalRequestTableModel extends AbstractTableModel {
+        private final List<AccountTerminationRequest> requests;
+        PatientRemovalRequestTableModel() {
+            this.requests = controller.getAccountTerminationRequests();
+        }
+        
+        @Override
+        public int getRowCount() {
+            return this.requests.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 6;
+        }
+        
+        public AccountTerminationRequest getRequest(int index) {
+            if (index < 0) {
+                return null;
+            }
+            return this.requests.get(index);
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            switch (column) {
+                case 0: return "ID";
+                case 1: return "Given Name";
+                case 2: return "Last Name";
+                case 3: return "Address";
+                case 4: return "Age";
+                case 5: return "Gender";
+            }
+            return null;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            AccountTerminationRequest request = this.requests.get(rowIndex);
+            Patient p = controller.getPatient(request.getPatientUUID());
+            switch (columnIndex) {
+                case 0: return p.getUUID();
+                case 1: return p.getGivenName();
+                case 2: return p.getLastName();
+                case 3: return p.getAddress();
+                case 4: return p.getAge();
+                case 5: return p.getGender();
             }
             return null;
         }
