@@ -91,7 +91,7 @@ public class Controller {
     public List<Appointment> getPatientAppointmentList(String uuid) {
         List<Appointment> list = new ArrayList<>();
         for (Map.Entry<String, Appointment> record : this.modelHelper.getAppointments().entrySet()) {
-            if (record.getKey().equals(uuid)) {
+            if (record.getValue().getPatientUUID().equals(uuid)) {
                 list.add(record.getValue());
             }
         }
@@ -170,5 +170,37 @@ public class Controller {
 
     public void approvePatientAccountRemoval(AccountTerminationRequest atr) {
         this.modelHelper.removePatientAccount(atr);
+    }
+
+    public List<Patient> getPatientList() {
+        return new ArrayList<Patient>(this.modelHelper.getPatients().values());
+    }
+
+    public void removePatient(String uuid) {
+        this.modelHelper.removePatientAccount(uuid);
+    }
+
+    public List<AppointmentRequest> getOpenAppointmentRequests() {
+        List<AppointmentRequest> list = new ArrayList<>();
+        for (AppointmentRequest record : this.modelHelper.getAppointmentRequests()) {
+            if(!record.isApproved()) {
+                list.add(record);
+            }
+        }
+        return list;
+    }
+
+    public void registerAppointmentFromRequest(AppointmentRequest ar) {
+        this.modelHelper.registerAppointmentFromRequest(ar);
+    }
+
+    public List<Appointment> getDoctorAppointmentList(String uuid) {
+        List<Appointment> list = new ArrayList<>();
+        for (Map.Entry<String, Appointment> record : this.modelHelper.getAppointments().entrySet()) {
+            if (record.getValue().getDoctorUUID().equals(uuid)) {
+                list.add(record.getValue());
+            }
+        }
+        return list;
     }
 }

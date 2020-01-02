@@ -35,6 +35,9 @@ public class MainFrame extends javax.swing.JFrame {
     private JPopupMenu adminDoctorsPopupMenu;
     private JPopupMenu adminSecretariesPopupMenu;
     private Secretary secretary;
+    private Doctor doctor;
+    private Doctor selectedDoctorForAppointment;
+    private Patient selectedPatientForAppointment;
     
 
     /**
@@ -59,6 +62,8 @@ public class MainFrame extends javax.swing.JFrame {
                 Doctor d = ((DoctorsTableModel)MainFrame.this.jtblAllDoctors.getModel()).getDoctor(MainFrame.this.jtblAllDoctors.getSelectedRow());
                 MainFrame.this.jtfAppointSchedulerPatientName.setText(patient.getGivenName() + " " + patient.getLastName());
                 MainFrame.this.jtfAppointmentSchedulerDoctorName.setText(d.getGivenName() + " " + d.getLastName());
+                MainFrame.this.selectedDoctorForAppointment = d;
+                MainFrame.this.selectedPatientForAppointment = patient;
                 MainFrame.this.jdRequestAppointment.pack();
                 MainFrame.this.jdRequestAppointment.setLocationRelativeTo(MainFrame.this);
                 MainFrame.this.jdRequestAppointment.setVisible(true);
@@ -75,6 +80,34 @@ public class MainFrame extends javax.swing.JFrame {
                 jtblAllDoctors.setRowSelectionInterval(currentRow, currentRow);
             }
         });
+        
+        JPopupMenu doctorPatientsPopupMenu = new JPopupMenu();
+        JMenuItem jmiDoctorReqAppointment = new JMenuItem("Request Appointment");
+        JMenuItem jmiDoctorViewPatientHistory = new JMenuItem("View History");
+        
+        jmiDoctorReqAppointment.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Patient p = ((PatientTableModel)MainFrame.this.jtblDoctorPatients.getModel()).getPatient(MainFrame.this.jtblDoctorPatients.getSelectedRow());
+                MainFrame.this.jtfAppointSchedulerPatientName.setText(p.getGivenName() + " " + p.getLastName());
+                MainFrame.this.jtfAppointmentSchedulerDoctorName.setText(doctor.getGivenName() + " " + doctor.getLastName());
+                MainFrame.this.selectedDoctorForAppointment = doctor;
+                MainFrame.this.selectedPatientForAppointment =  p;
+                MainFrame.this.jdRequestAppointment.pack();
+                MainFrame.this.jdRequestAppointment.setLocationRelativeTo(MainFrame.this);
+                MainFrame.this.jdRequestAppointment.setVisible(true);
+            }
+        });
+        
+        jmiDoctorViewPatientHistory.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+        doctorPatientsPopupMenu.add(jmiDoctorReqAppointment);
+        doctorPatientsPopupMenu.add(jmiDoctorViewPatientHistory);
+        this.jtblDoctorPatients.setComponentPopupMenu(doctorPatientsPopupMenu);
         
         this.adminDoctorsPopupMenu = new JPopupMenu();
         JMenuItem jmiRemoveDoctor = new JMenuItem("Remove");
@@ -170,6 +203,7 @@ public class MainFrame extends javax.swing.JFrame {
                 PatientCreationRequest pcr = ((PatientCreationRequestTableModel)MainFrame.this.jtblPatientAccCreationRequests.getModel()).getRequest(MainFrame.this.jtblPatientAccCreationRequests.getSelectedRow());
                 MainFrame.this.controller.approvePatientAccountCreation(pcr);
                 MainFrame.this.jtblPatientAccCreationRequests.setModel(new PatientCreationRequestTableModel());
+                MainFrame.this.jtblSecretaryPatients.setModel(new PatientTableModel());
                 JOptionPane.showMessageDialog(MainFrame.this, "Account Approved", "Success",  JOptionPane.INFORMATION_MESSAGE);
             }
         });
@@ -183,11 +217,41 @@ public class MainFrame extends javax.swing.JFrame {
                 AccountTerminationRequest atr = ((PatientRemovalRequestTableModel)MainFrame.this.jtblAccountRemovalRequests.getModel()).getRequest(MainFrame.this.jtblAccountRemovalRequests.getSelectedRow());
                 MainFrame.this.controller.approvePatientAccountRemoval(atr);
                 MainFrame.this.jtblAccountRemovalRequests.setModel(new PatientRemovalRequestTableModel());
+                MainFrame.this.jtblSecretaryPatients.setModel(new PatientTableModel());
                 JOptionPane.showMessageDialog(MainFrame.this, "Account Removed", "Success",  JOptionPane.INFORMATION_MESSAGE);
             }
         });
         jpmAccountRemoval.add(jmiApproveAccountRemoval);
         this.jtblAccountRemovalRequests.setComponentPopupMenu(jpmAccountRemoval);
+        
+        JPopupMenu jpmPatientRemoval = new JPopupMenu();
+        JMenuItem jmiRemovePatient = new JMenuItem("Remove Patient");
+        jmiRemovePatient.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Patient p = ((PatientTableModel)MainFrame.this.jtblSecretaryPatients.getModel()).getPatient(MainFrame.this.jtblSecretaryPatients.getSelectedRow());
+                controller.removePatient(p.getUUID());
+                MainFrame.this.jtblSecretaryPatients.setModel(new PatientTableModel());
+                JOptionPane.showMessageDialog(MainFrame.this, "Patient removed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        jpmPatientRemoval.add(jmiRemovePatient);
+        this.jtblSecretaryPatients.setComponentPopupMenu(jpmPatientRemoval);
+        
+        JPopupMenu jpmAppointmentRequest = new JPopupMenu();
+        JMenuItem jmiApproveAppointmentRequest = new JMenuItem("Approve");
+        jmiApproveAppointmentRequest.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AppointmentRequest ar = ((AppointmentRequestTableModel)MainFrame.this.jtblAppointmentsRequests.getModel()).getRequest(MainFrame.this.jtblAppointmentsRequests.getSelectedRow());
+                ar.setApproved(true);
+                MainFrame.this.jtblAppointmentsRequests.setModel(new AppointmentRequestTableModel());
+                controller.registerAppointmentFromRequest(ar);
+                JOptionPane.showMessageDialog(MainFrame.this, "Appointment Request Approved", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        jpmAppointmentRequest.add(jmiApproveAppointmentRequest);
+        this.jtblAppointmentsRequests.setComponentPopupMenu(jpmAppointmentRequest);
     }
 
     /**
@@ -313,6 +377,9 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jpSecretaryRoot = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel12 = new javax.swing.JPanel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        jtblSecretaryPatients = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jtblPatientAccCreationRequests = new javax.swing.JTable();
@@ -330,6 +397,17 @@ public class MainFrame extends javax.swing.JFrame {
         jtblMedicineStockRequests = new javax.swing.JTable();
         jlblSecretaryName = new javax.swing.JLabel();
         jBtnSecretaryLogOut = new javax.swing.JButton();
+        jpDoctorRoot = new javax.swing.JPanel();
+        jTabbedPane4 = new javax.swing.JTabbedPane();
+        jPanel13 = new javax.swing.JPanel();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        jtblDoctorAppointments = new javax.swing.JTable();
+        jPanel14 = new javax.swing.JPanel();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        jtblDoctorPatients = new javax.swing.JTable();
+        jlblDoctorName = new javax.swing.JLabel();
+        jButtonDoctorLogout = new javax.swing.JButton();
+        jbtnDoctorCreateMedicine = new javax.swing.JButton();
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1321,6 +1399,32 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jtblSecretaryPatients.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtblSecretaryPatients.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane13.setViewportView(jtblSecretaryPatients);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Manage  Patients", jPanel12);
+
         jtblPatientAccCreationRequests.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1490,6 +1594,109 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
+        jtblDoctorAppointments.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtblDoctorAppointments.setToolTipText("");
+        jtblDoctorAppointments.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane14.setViewportView(jtblDoctorAppointments);
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+        );
+
+        jTabbedPane4.addTab("Appointments", jPanel13);
+
+        jtblDoctorPatients.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtblDoctorPatients.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane15.setViewportView(jtblDoctorPatients);
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+        );
+
+        jTabbedPane4.addTab("Patients", jPanel14);
+
+        jlblDoctorName.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
+        jlblDoctorName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jButtonDoctorLogout.setText("Log Out");
+        jButtonDoctorLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDoctorLogoutActionPerformed(evt);
+            }
+        });
+
+        jbtnDoctorCreateMedicine.setText("Create Medicine");
+        jbtnDoctorCreateMedicine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnDoctorCreateMedicineActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpDoctorRootLayout = new javax.swing.GroupLayout(jpDoctorRoot);
+        jpDoctorRoot.setLayout(jpDoctorRootLayout);
+        jpDoctorRootLayout.setHorizontalGroup(
+            jpDoctorRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpDoctorRootLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jlblDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jpDoctorRootLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpDoctorRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpDoctorRootLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jbtnDoctorCreateMedicine)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonDoctorLogout)
+                        .addGap(14, 14, 14))
+                    .addComponent(jTabbedPane4)))
+        );
+        jpDoctorRootLayout.setVerticalGroup(
+            jpDoctorRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpDoctorRootLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jlblDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(jTabbedPane4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpDoctorRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonDoctorLogout, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(jbtnDoctorCreateMedicine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 23, 1000, 850));
         setMaximumSize(new java.awt.Dimension(1000, 850));
@@ -1617,12 +1824,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void jbtnSubmitAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubmitAppointmentActionPerformed
         // TODO add your handling code here:
         System.out.println("Submit Appointment!");
-        Doctor d = ((DoctorsTableModel)MainFrame.this.jtblAllDoctors.getModel()).getDoctor(MainFrame.this.jtblAllDoctors.getSelectedRow());
+        Doctor d = this.selectedDoctorForAppointment;
+        Patient p = this.selectedPatientForAppointment;
         try {
-            AppointmentRequest ar = new AppointmentRequest(d.getUUID(), this.patient.getUUID(), Appointment.sdf.parse(this.jftAppointSchedulerDate.getText().trim()), false);
+            AppointmentRequest ar = new AppointmentRequest(d.getUUID(), p.getUUID(), Appointment.sdf.parse(this.jftAppointSchedulerDate.getText().trim()), false);
             this.controller.submitAppointmentRequest(ar);
             this.jftAppointSchedulerDate.setText("");
             this.jdRequestAppointment.dispose();
+            JOptionPane.showMessageDialog(this, "Appointment Successfully scheduled", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (ParseException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1728,6 +1937,14 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtnSubmitPatientAccountRequestActionPerformed
 
+    private void jButtonDoctorLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDoctorLogoutActionPerformed
+        this.switchToLogin();
+    }//GEN-LAST:event_jButtonDoctorLogoutActionPerformed
+
+    private void jbtnDoctorCreateMedicineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDoctorCreateMedicineActionPerformed
+        
+    }//GEN-LAST:event_jbtnDoctorCreateMedicineActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnLogin;
     private javax.swing.JButton jBtnSecretaryLogOut;
@@ -1737,6 +1954,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAdminLogout;
+    private javax.swing.JButton jButtonDoctorLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1770,6 +1988,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1782,6 +2003,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1794,6 +2018,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JButton jbtnAdminAddDoctor;
     private javax.swing.JButton jbtnAdminAddSecretary;
     private javax.swing.JButton jbtnAdminViewDoctorRatingCancel;
@@ -1804,6 +2029,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jbtnCreateDoctorSubmit;
     private javax.swing.JButton jbtnCreateSecretaryCancel;
     private javax.swing.JButton jbtnCreateSecretarySubmit;
+    private javax.swing.JButton jbtnDoctorCreateMedicine;
     private javax.swing.JButton jbtnSubmitAppointment;
     private javax.swing.JButton jbtnSubmitPatientAccountRequest;
     private javax.swing.JDialog jdAdminViewDoctorRatings;
@@ -1813,10 +2039,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jftAppointSchedulerDate;
     private javax.swing.JLabel jlblAdminName;
     private javax.swing.JLabel jlblAdminViewDoctorRatingsDoctorName;
+    private javax.swing.JLabel jlblDoctorName;
     private javax.swing.JLabel jlblPatientName;
     private javax.swing.JLabel jlblSecretaryName;
     private javax.swing.JPanel jpAdminRoot;
     private javax.swing.JPanel jpCreateAdmin;
+    private javax.swing.JPanel jpDoctorRoot;
     private javax.swing.JPanel jpLRC;
     private javax.swing.JPanel jpLoginRootView;
     private javax.swing.JPanel jpPatientRoot;
@@ -1833,11 +2061,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTable jtblAdminViewDoctorRatings;
     private javax.swing.JTable jtblAllDoctors;
     private javax.swing.JTable jtblAppointmentsRequests;
+    private javax.swing.JTable jtblDoctorAppointments;
+    private javax.swing.JTable jtblDoctorPatients;
     private javax.swing.JTable jtblMedicineCollection;
     private javax.swing.JTable jtblMedicineStockRequests;
     private javax.swing.JTable jtblMyAppointments;
     private javax.swing.JTable jtblMyHistory;
     private javax.swing.JTable jtblPatientAccCreationRequests;
+    private javax.swing.JTable jtblSecretaryPatients;
     private javax.swing.JTextField jtfAddress;
     private javax.swing.JTextField jtfAdminViewDoctorRating;
     private javax.swing.JTextField jtfAdminViewDoctorRatingComment;
@@ -1873,7 +2104,13 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void switchToDoctorMode(Doctor doctor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Switcing to Doctor mode");
+        this.doctor = doctor;
+        this.jlblDoctorName.setText(String.format("Welcome Dr. %s %s", doctor.getGivenName(), doctor.getLastName()));
+        this.jtblDoctorAppointments.setModel(new DoctorAppointmentTableModel());
+        this.jtblDoctorPatients.setModel(new PatientTableModel());
+        this.setContentPane(this.jpDoctorRoot);
+        this.revalidate();
     }
 
     private void switchToPatientMode(Patient patient) {
@@ -1896,6 +2133,8 @@ public class MainFrame extends javax.swing.JFrame {
         // set models
         this.jtblPatientAccCreationRequests.setModel(new PatientCreationRequestTableModel());
         this.jtblAccountRemovalRequests.setModel(new PatientRemovalRequestTableModel());
+        this.jtblSecretaryPatients.setModel(new PatientTableModel());
+        this.jtblAppointmentsRequests.setModel(new AppointmentRequestTableModel());
         
         // update view
         this.setContentPane(this.jpSecretaryRoot);
@@ -2302,6 +2541,158 @@ public class MainFrame extends javax.swing.JFrame {
                 case 3: return p.getAddress();
                 case 4: return p.getAge();
                 case 5: return p.getGender();
+            }
+            return null;
+        }
+    }
+    
+    class PatientTableModel extends AbstractTableModel {
+        private final List<Patient> patients;
+        PatientTableModel() {
+            this.patients = controller.getPatientList();
+        }
+        
+        @Override
+        public int getRowCount() {
+            return this.patients.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 5;
+        }
+        
+        public Patient getPatient(int index) {
+            return this.patients.get(index);
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            switch (column) {
+                case 0: return "ID";
+                case 1: return "Given Name";
+                case 2: return "Last Name";
+                case 3: return "Address";
+                case 4: return "Age";
+            }
+            return null;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Patient p = this.patients.get(rowIndex);
+            switch (columnIndex) {
+                case 0: return p.getUUID();
+                case 1: return p.getGivenName();
+                case 2: return p.getLastName();
+                case 3: return p.getAddress();
+                case 4: return p.getAge();
+            }
+            return null;
+        }
+    }
+    
+    class AppointmentRequestTableModel extends AbstractTableModel {
+        private final List<AppointmentRequest> requests;
+        AppointmentRequestTableModel() {
+            this.requests = controller.getOpenAppointmentRequests();
+        }
+        
+        @Override
+        public int getRowCount() {
+            return this.requests.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 3;
+        }
+        
+        public AppointmentRequest getRequest(int index) {
+            return this.requests.get(index);
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            switch (column) {
+                case 0: return "Doctor Name";
+                case 1: return "Patient Name";
+                case 2: return "Appointment Date";
+            }
+            return null;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            AppointmentRequest ar = this.requests.get(rowIndex);
+            Doctor dr = controller.getDoctor(ar.getDoctorUUID());
+            Patient p = controller.getPatient(ar.getPatientUUID());
+            String doctorName = String.format("Dr.  %s %s", dr.getGivenName(), dr.getLastName());
+            String patientName = String.format("%s %s", p.getGivenName(), p.getLastName());
+            switch (columnIndex) {
+                case 0: return doctorName;
+                case 1: return patientName;
+                case 2: return Appointment.sdf.format(ar.getDate());
+            }
+            return null;
+        }
+    }
+    
+    class DoctorAppointmentTableModel extends AbstractTableModel {
+        private final List<Appointment> appointments;
+        DoctorAppointmentTableModel() {
+            this.appointments = controller.getDoctorAppointmentList(doctor.getUUID());
+        }
+        
+        @Override
+        public int getRowCount() {
+            return this.appointments.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 4;
+        }
+        
+        public Appointment getDoctor(int index) {
+            return this.appointments.get(index);
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            switch (column) {
+                case 0: return "ID";
+                case 1: return "Date";
+                case 2: return "Patient Name";
+                case 3: return "Patient Age";
+            }
+            return null;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Appointment a = this.appointments.get(rowIndex);
+            Patient p = controller.getPatient(a.getPatientUUID());
+            switch (columnIndex) {
+                case 0: return a.getUUID();
+                case 1: return Appointment.sdf.format(a.getDate());
+                case 2: return p.getGivenName() + " " + p.getLastName();
+                case 3: return String.valueOf(p.getAge());
             }
             return null;
         }

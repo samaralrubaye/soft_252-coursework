@@ -864,5 +864,16 @@ public class DatastoreHelper {
         boolean  removed = this.accountTerminationRequests.remove(atr);
         System.out.println("removed Patient? " + removed); 
     }
+
+    public void removePatientAccount(String uuid) {
+        this.patients.remove(uuid);
+    }
+
+    public void registerAppointmentFromRequest(AppointmentRequest ar) {
+        int nextID = this.appointments.size() + 1;
+        String uuid = String.format("A_%04d", nextID);
+        Appointment a = new Appointment(uuid, ar.getDoctorUUID(), ar.getPatientUUID(), ar.getDate(), false, false);
+        this.appointments.put(uuid, a);
+    }
     
 }

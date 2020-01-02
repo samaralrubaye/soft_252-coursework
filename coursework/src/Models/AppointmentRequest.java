@@ -68,6 +68,14 @@ public class AppointmentRequest implements IPersistable {
     public String getDoctorUUID() {
         return this.doctorUUID;
     }
+    
+    /**
+     * Setter method to set the  approval state of this AppointmentRequest
+     * @param approved boolean new approval status
+     */
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
 
     /**
      * Getter method for the Patient unique id
