@@ -38,6 +38,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Doctor doctor;
     private Doctor selectedDoctorForAppointment;
     private Patient selectedPatientForAppointment;
+    private Appointment selectedAppointment;
     
 
     /**
@@ -108,6 +109,36 @@ public class MainFrame extends javax.swing.JFrame {
         doctorPatientsPopupMenu.add(jmiDoctorReqAppointment);
         doctorPatientsPopupMenu.add(jmiDoctorViewPatientHistory);
         this.jtblDoctorPatients.setComponentPopupMenu(doctorPatientsPopupMenu);
+        
+        JPopupMenu jpDoctorAppointments = new JPopupMenu();
+        JMenuItem jmiDoctorBeginAppointment = new JMenuItem("Begin Appointment");
+        JMenuItem jmiDoctorCreatePrescription = new JMenuItem("Create Prescription");
+        jmiDoctorBeginAppointment.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Appointment a = ((DoctorAppointmentTableModel)MainFrame.this.jtblDoctorAppointments.getModel()).getAppointment(MainFrame.this.jtblDoctorAppointments.getSelectedRow());
+                MainFrame.this.selectedAppointment = a;
+                Patient p = MainFrame.this.controller.getPatient(a.getPatientUUID());
+                MainFrame.this.jtfAppointmentDate.setText(Appointment.sdf.format(a.getDate()));
+                MainFrame.this.jtfAppointmentPatientAddress.setText(p.getAddress());
+                MainFrame.this.jtfAppointmentPatientAge.setText(String.valueOf(p.getAge()));
+                MainFrame.this.jtfAppointmentPatientName.setText(String.format("%s %s", p.getGivenName(), p.getLastName()));
+                MainFrame.this.jdDoctorAppointment.pack();
+                MainFrame.this.jdDoctorAppointment.setLocationRelativeTo(MainFrame.this);
+                MainFrame.this.jdDoctorAppointment.setVisible(true);
+            }
+        });
+        
+        jmiDoctorCreatePrescription.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        jpDoctorAppointments.add(jmiDoctorBeginAppointment);
+        jpDoctorAppointments.add(jmiDoctorCreatePrescription);
+        this.jtblDoctorAppointments.setComponentPopupMenu(jpDoctorAppointments);
+        
         
         this.adminDoctorsPopupMenu = new JPopupMenu();
         JMenuItem jmiRemoveDoctor = new JMenuItem("Remove");
@@ -252,6 +283,20 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jpmAppointmentRequest.add(jmiApproveAppointmentRequest);
         this.jtblAppointmentsRequests.setComponentPopupMenu(jpmAppointmentRequest);
+        
+        JPopupMenu jpmMedicineOrder = new JPopupMenu();
+        JMenuItem jmiApproveMedicineOrder = new JMenuItem("Approve Medicine Order");
+        jmiApproveMedicineOrder.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MedicineOrder mo = ((MedicineOrderTableModel)MainFrame.this.jtblMedicineStockRequests.getModel()).getOrder(MainFrame.this.jtblMedicineStockRequests.getSelectedRow());
+                MainFrame.this.controller.approveMedicineOrder(mo);
+                MainFrame.this.jtblMedicineStockRequests.setModel(new MedicineOrderTableModel());
+                JOptionPane.showMessageDialog(MainFrame.this, "Medicine Order Request Successfully Approved",  "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        jpmMedicineOrder.add(jmiApproveMedicineOrder);
+        this.jtblMedicineStockRequests.setComponentPopupMenu(jpmMedicineOrder);
     }
 
     /**
@@ -408,6 +453,32 @@ public class MainFrame extends javax.swing.JFrame {
         jlblDoctorName = new javax.swing.JLabel();
         jButtonDoctorLogout = new javax.swing.JButton();
         jbtnDoctorCreateMedicine = new javax.swing.JButton();
+        jdCreateMedicine = new javax.swing.JDialog();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jtfMedicineName = new javax.swing.JTextField();
+        jbtnCreateMedicine = new javax.swing.JButton();
+        jbtnCancelCreateMedicineDialog = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        jtfMedicineQty = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        jtaMedicineDescription = new javax.swing.JTextArea();
+        jdDoctorAppointment = new javax.swing.JDialog();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jtfAppointmentPatientName = new javax.swing.JTextField();
+        jbtnAppointmentDialogSubmit = new javax.swing.JButton();
+        jbtnDialogAppointmentCancel = new javax.swing.JButton();
+        jtfAppointmentPatientAge = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        jtfAppointmentPatientAddress = new javax.swing.JTextField();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        jtaAppointmentDoctorNotes = new javax.swing.JTextArea();
+        jtfAppointmentDate = new javax.swing.JTextField();
+        jLabel41 = new javax.swing.JLabel();
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1697,6 +1768,225 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
+        jdCreateMedicine.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jdCreateMedicine.setAlwaysOnTop(true);
+        jdCreateMedicine.setModal(true);
+
+        jLabel32.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel32.setText("CREATE MEDICINE");
+
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel33.setText("NAME");
+        jLabel33.setToolTipText("");
+
+        jbtnCreateMedicine.setText("CREATE");
+        jbtnCreateMedicine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCreateMedicineActionPerformed(evt);
+            }
+        });
+
+        jbtnCancelCreateMedicineDialog.setForeground(new java.awt.Color(204, 0, 0));
+        jbtnCancelCreateMedicineDialog.setText("CANCEL");
+        jbtnCancelCreateMedicineDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCancelCreateMedicineDialogActionPerformed(evt);
+            }
+        });
+
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel34.setText("QUANTITY");
+
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel35.setText("DESCRIPTION");
+
+        jtaMedicineDescription.setColumns(20);
+        jtaMedicineDescription.setRows(5);
+        jScrollPane16.setViewportView(jtaMedicineDescription);
+
+        javax.swing.GroupLayout jdCreateMedicineLayout = new javax.swing.GroupLayout(jdCreateMedicine.getContentPane());
+        jdCreateMedicine.getContentPane().setLayout(jdCreateMedicineLayout);
+        jdCreateMedicineLayout.setHorizontalGroup(
+            jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdCreateMedicineLayout.createSequentialGroup()
+                .addGroup(jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jdCreateMedicineLayout.createSequentialGroup()
+                            .addComponent(jbtnCreateMedicine, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jbtnCancelCreateMedicineDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jdCreateMedicineLayout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jdCreateMedicineLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfMedicineName, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jdCreateMedicineLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jdCreateMedicineLayout.createSequentialGroup()
+                                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfMedicineQty, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jdCreateMedicineLayout.createSequentialGroup()
+                                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jdCreateMedicineLayout.setVerticalGroup(
+            jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdCreateMedicineLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel32)
+                .addGap(18, 18, 18)
+                .addGroup(jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(jtfMedicineName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(jtfMedicineQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addGroup(jdCreateMedicineLayout.createSequentialGroup()
+                        .addComponent(jLabel35)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jdCreateMedicineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnCreateMedicine)
+                    .addComponent(jbtnCancelCreateMedicineDialog))
+                .addGap(24, 24, 24))
+        );
+
+        jdDoctorAppointment.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jdDoctorAppointment.setAlwaysOnTop(true);
+        jdDoctorAppointment.setModal(true);
+
+        jLabel36.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel36.setText("PATIENT APPOINTMENT");
+
+        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel37.setText("PATIENT NAME");
+
+        jtfAppointmentPatientName.setEditable(false);
+
+        jbtnAppointmentDialogSubmit.setText("CREATE");
+        jbtnAppointmentDialogSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAppointmentDialogSubmitActionPerformed(evt);
+            }
+        });
+
+        jbtnDialogAppointmentCancel.setForeground(new java.awt.Color(204, 0, 0));
+        jbtnDialogAppointmentCancel.setText("CANCEL");
+        jbtnDialogAppointmentCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnDialogAppointmentCancelActionPerformed(evt);
+            }
+        });
+
+        jtfAppointmentPatientAge.setEditable(false);
+
+        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel38.setText("PATIENT AGE");
+
+        jtfAppointmentPatientAddress.setEditable(false);
+
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel39.setText("PATIENT ADDRESS");
+
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel40.setText("DOCTORS NOTES");
+
+        jtaAppointmentDoctorNotes.setColumns(20);
+        jtaAppointmentDoctorNotes.setRows(5);
+        jScrollPane17.setViewportView(jtaAppointmentDoctorNotes);
+
+        jtfAppointmentDate.setEditable(false);
+
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel41.setText("DATE");
+
+        javax.swing.GroupLayout jdDoctorAppointmentLayout = new javax.swing.GroupLayout(jdDoctorAppointment.getContentPane());
+        jdDoctorAppointment.getContentPane().setLayout(jdDoctorAppointmentLayout);
+        jdDoctorAppointmentLayout.setHorizontalGroup(
+            jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdDoctorAppointmentLayout.createSequentialGroup()
+                .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jdDoctorAppointmentLayout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jdDoctorAppointmentLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfAppointmentPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jdDoctorAppointmentLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jdDoctorAppointmentLayout.createSequentialGroup()
+                                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfAppointmentPatientAge, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jdDoctorAppointmentLayout.createSequentialGroup()
+                                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfAppointmentPatientAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jdDoctorAppointmentLayout.createSequentialGroup()
+                                .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jdDoctorAppointmentLayout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jScrollPane17))
+                                    .addComponent(jtfAppointmentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdDoctorAppointmentLayout.createSequentialGroup()
+                                .addComponent(jbtnAppointmentDialogSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbtnDialogAppointmentCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jdDoctorAppointmentLayout.setVerticalGroup(
+            jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdDoctorAppointmentLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel36)
+                .addGap(18, 18, 18)
+                .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(jtfAppointmentPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel38)
+                    .addComponent(jtfAppointmentPatientAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel39)
+                    .addComponent(jtfAppointmentPatientAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel41)
+                    .addComponent(jtfAppointmentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jdDoctorAppointmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnAppointmentDialogSubmit)
+                    .addComponent(jbtnDialogAppointmentCancel))
+                .addGap(12, 12, 12))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 23, 1000, 850));
         setMaximumSize(new java.awt.Dimension(1000, 850));
@@ -1942,8 +2232,44 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDoctorLogoutActionPerformed
 
     private void jbtnDoctorCreateMedicineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDoctorCreateMedicineActionPerformed
-        
+        this.jdCreateMedicine.pack();
+        this.jdCreateMedicine.setLocationRelativeTo(this);
+        this.jdCreateMedicine.setVisible(true);
     }//GEN-LAST:event_jbtnDoctorCreateMedicineActionPerformed
+
+    private void jbtnCreateMedicineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreateMedicineActionPerformed
+        this.controller.submitMedicineOrder(
+                this.doctor.getUUID(),
+                this.jtfMedicineName.getText(),
+                Integer.valueOf(this.jtfMedicineQty.getText()),
+                this.jtaMedicineDescription.getText()
+        );
+        this.jdCreateMedicine.dispose();
+        JOptionPane.showMessageDialog(this, "Medicine Order successfully submitted.", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jbtnCreateMedicineActionPerformed
+
+    private void jbtnCancelCreateMedicineDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelCreateMedicineDialogActionPerformed
+        this.jtfMedicineName.setText("");
+        this.jtfMedicineQty.setText("");
+        this.jtaMedicineDescription.setText("");
+        this.jdCreateMedicine.dispose();
+    }//GEN-LAST:event_jbtnCancelCreateMedicineDialogActionPerformed
+
+    private void jbtnAppointmentDialogSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAppointmentDialogSubmitActionPerformed
+        Appointment a = this.selectedAppointment;
+        a.setNotes(this.jtaAppointmentDoctorNotes.getText());
+        this.controller.createPatientHistory(a);
+        this.jdDoctorAppointment.dispose();
+        JOptionPane.showMessageDialog(this, "Appointment Notes saved", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jbtnAppointmentDialogSubmitActionPerformed
+
+    private void jbtnDialogAppointmentCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDialogAppointmentCancelActionPerformed
+        this.jtfAppointmentDate.setText("");
+        this.jtfAppointmentPatientAddress.setText("");
+        this.jtfAppointmentPatientAge.setText("");
+        this.jtfAppointmentPatientName.setText("");
+        this.jdDoctorAppointment.dispose();
+    }//GEN-LAST:event_jbtnDialogAppointmentCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnLogin;
@@ -1980,7 +2306,17 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -2006,6 +2342,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
+    private javax.swing.JScrollPane jScrollPane17;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -2023,18 +2361,24 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jbtnAdminAddSecretary;
     private javax.swing.JButton jbtnAdminViewDoctorRatingCancel;
     private javax.swing.JButton jbtnAdminViewDoctorRatingSubmit;
+    private javax.swing.JButton jbtnAppointmentDialogSubmit;
+    private javax.swing.JButton jbtnCancelCreateMedicineDialog;
     private javax.swing.JButton jbtnCancelRequestAppointmentDialog;
     private javax.swing.JButton jbtnCreateAdminSubmit;
     private javax.swing.JButton jbtnCreateDoctorCancel;
     private javax.swing.JButton jbtnCreateDoctorSubmit;
+    private javax.swing.JButton jbtnCreateMedicine;
     private javax.swing.JButton jbtnCreateSecretaryCancel;
     private javax.swing.JButton jbtnCreateSecretarySubmit;
+    private javax.swing.JButton jbtnDialogAppointmentCancel;
     private javax.swing.JButton jbtnDoctorCreateMedicine;
     private javax.swing.JButton jbtnSubmitAppointment;
     private javax.swing.JButton jbtnSubmitPatientAccountRequest;
     private javax.swing.JDialog jdAdminViewDoctorRatings;
     private javax.swing.JDialog jdCreateDoctor;
+    private javax.swing.JDialog jdCreateMedicine;
     private javax.swing.JDialog jdCreateSecretary;
+    private javax.swing.JDialog jdDoctorAppointment;
     private javax.swing.JDialog jdRequestAppointment;
     private javax.swing.JFormattedTextField jftAppointSchedulerDate;
     private javax.swing.JLabel jlblAdminName;
@@ -2055,6 +2399,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField jpfCreateSecretaryPassword;
     private javax.swing.JPasswordField jpfPassword;
     private javax.swing.JTextArea jtaAdminViewDoctorRatingComment;
+    private javax.swing.JTextArea jtaAppointmentDoctorNotes;
+    private javax.swing.JTextArea jtaMedicineDescription;
     private javax.swing.JTable jtblAccountRemovalRequests;
     private javax.swing.JTable jtblAdminAllDoctors;
     private javax.swing.JTable jtblAdminAllSecretaries;
@@ -2075,6 +2421,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jtfAdminViewDoctorRatingPatientName;
     private javax.swing.JTextField jtfAge;
     private javax.swing.JTextField jtfAppointSchedulerPatientName;
+    private javax.swing.JTextField jtfAppointmentDate;
+    private javax.swing.JTextField jtfAppointmentPatientAddress;
+    private javax.swing.JTextField jtfAppointmentPatientAge;
+    private javax.swing.JTextField jtfAppointmentPatientName;
     private javax.swing.JTextField jtfAppointmentSchedulerDoctorName;
     private javax.swing.JTextField jtfCreateAdminAddress;
     private javax.swing.JTextField jtfCreateAdminGivenName;
@@ -2088,6 +2438,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jtfGender;
     private javax.swing.JTextField jtfGivenName;
     private javax.swing.JTextField jtfLastName;
+    private javax.swing.JTextField jtfMedicineName;
+    private javax.swing.JTextField jtfMedicineQty;
     private javax.swing.JPasswordField jtfPassword;
     private javax.swing.JTextField jtfUserID;
     private javax.swing.JPanel pLoginContainer;
@@ -2135,6 +2487,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.jtblAccountRemovalRequests.setModel(new PatientRemovalRequestTableModel());
         this.jtblSecretaryPatients.setModel(new PatientTableModel());
         this.jtblAppointmentsRequests.setModel(new AppointmentRequestTableModel());
+        this.jtblMedicineStockRequests.setModel(new MedicineOrderTableModel());
         
         // update view
         this.setContentPane(this.jpSecretaryRoot);
@@ -2317,7 +2670,9 @@ public class MainFrame extends javax.swing.JFrame {
         public String getColumnName(int column) {
             switch (column) {
                 case 0: return "ID";
-                case 1: return "Prescription";
+                case 1: return "Date";
+                case 2: return "Notes";
+                case 3: return "Doctor";
             }
             return null;
         }
@@ -2325,10 +2680,14 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             PatientHistory history = this.histories.get(rowIndex);
-            Prescription p = controller.getPrescription(history.getPrescriptionUUID());
+            Appointment a = controller.getAppointment(history.getAppointmentUUID());
+            Doctor d = controller.getDoctor(a.getDoctorUUID());
+            Patient p = controller.getPatient(a.getPatientUUID());
             switch (columnIndex) {
                 case 0: return history.getUUID();
-                case 1: return p.getDescription();
+                case 1: return Appointment.sdf.format(a.getDate());
+                case 2: return a.getNotes();
+                case 3: return String.format("%s %s", d.getGivenName(), d.getLastName());
             }
             return null;
         }
@@ -2664,7 +3023,7 @@ public class MainFrame extends javax.swing.JFrame {
             return 4;
         }
         
-        public Appointment getDoctor(int index) {
+        public Appointment getAppointment(int index) {
             return this.appointments.get(index);
         }
 
@@ -2693,6 +3052,58 @@ public class MainFrame extends javax.swing.JFrame {
                 case 1: return Appointment.sdf.format(a.getDate());
                 case 2: return p.getGivenName() + " " + p.getLastName();
                 case 3: return String.valueOf(p.getAge());
+            }
+            return null;
+        }
+    }
+    
+    class MedicineOrderTableModel extends AbstractTableModel {
+        private final List<MedicineOrder> requests;
+        MedicineOrderTableModel() {
+            this.requests = controller.getMedicineOrders();
+        }
+        
+        @Override
+        public int getRowCount() {
+            return this.requests.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 4;
+        }
+        
+        public MedicineOrder getOrder(int index) {
+            return this.requests.get(index);
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            switch (column) {
+                case 0: return "ID";
+                case 1: return "Doctor Name";
+                case 2: return "Medicine Name";
+                case 3: return "Medicine Description";
+                case 4: return "Medicine Quantity";
+            }
+            return null;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            MedicineOrder mo = this.requests.get(rowIndex);
+            Doctor d = controller.getDoctor(mo.getDoctorUUID());
+            switch (columnIndex) {
+                case 0: return mo.getUUID();
+                case 1: return String.format("Dr. %s %s", d.getGivenName(), d.getLastName());
+                case 2: return mo.getMedicineName();
+                case 3: return mo.getMedicineDescription();
+                case 4: return String.valueOf(mo.getQuantity());
             }
             return null;
         }

@@ -24,6 +24,7 @@ public class Appointment implements IPersistable {
     private final String patientUUID;
     private boolean patientNotified;
     private boolean doctorNotified;
+    private String notes;
     
     /**
      * Constructor for creating a new Appointment object
@@ -33,8 +34,9 @@ public class Appointment implements IPersistable {
      * @param date - Date of this Appointment
      * @param patientNotified - boolean specifying if the patient has been notified of this Appointment
      * @param doctorNotified - boolean specifying if the doctor has been notified of this Appointment
+     * @param notes - notes taken by doctor during this appointment
      */
-    public Appointment(String uuid, String doctorUUID, String patientUUID, Date date, boolean patientNotified, boolean doctorNotified) {
+    public Appointment(String uuid, String doctorUUID, String patientUUID, Date date, boolean patientNotified, boolean doctorNotified, String notes) {
         super();
         this.uuid = uuid;
         this.doctorUUID = doctorUUID;
@@ -42,6 +44,7 @@ public class Appointment implements IPersistable {
         this.date = date;
         this.patientNotified = patientNotified;
         this.doctorNotified = doctorNotified;
+        this.notes = notes;
     }
     
     /**
@@ -51,12 +54,17 @@ public class Appointment implements IPersistable {
      * @return new Appointment
      */
     public static Appointment newAppointment(String txtFormat) {
-        String[] tokens = txtFormat.split(",");
+        String[] tokens = txtFormat.split("~");
         Date date = null;
         try {
             date = sdf.parse(tokens[3]);
         } catch (ParseException ex) {
             Logger.getLogger(Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String notes = "";
+        if (tokens.length == 7) {
+            notes = tokens[6];
         }
         return new Appointment(
                 tokens[0],
@@ -64,7 +72,8 @@ public class Appointment implements IPersistable {
                 tokens[2],
                 date,
                 Boolean.valueOf(tokens[4]),
-                Boolean.valueOf(tokens[5])
+                Boolean.valueOf(tokens[5]),
+                notes
         );
     }
     
@@ -74,6 +83,22 @@ public class Appointment implements IPersistable {
      */
     public Date getDate() {
         return this.date;
+    }
+    
+    /**
+     * Getter method of the notes taken by the doctor during this appointment
+     * @return 
+     */
+    public String getNotes() {
+        return this.notes;
+    }
+    
+    /**
+     * Setter method for the notes taken by a Doctor during the appointment
+     * @param notes - notes taken by the doctor
+     */
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     /**
@@ -134,7 +159,7 @@ public class Appointment implements IPersistable {
     
     @Override
     public String toPersistableTxtFormat() {
-        return String.format("%s,%s,%s,%s,%b,%b", this.uuid, this.doctorUUID, this.patientUUID, sdf.format(this.date), this.patientNotified, this.doctorNotified);
+        return String.format("%s~%s~%s~%s~%b~%b~%s", this.uuid, this.doctorUUID, this.patientUUID, sdf.format(this.date), this.patientNotified, this.doctorNotified, this.notes);
     }
     
 }

@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -454,6 +455,7 @@ public class DatastoreHelper {
             while(sc.hasNextLine()) {
                 String txtFormat = sc.nextLine();
                 if (!txtFormat.trim().isEmpty()) {
+                    System.out.println("read appointment: " + txtFormat);
                     Appointment ap = Appointment.newAppointment(txtFormat);
                     this.appointments.put(ap.getUUID(), ap);
                 }
@@ -872,8 +874,47 @@ public class DatastoreHelper {
     public void registerAppointmentFromRequest(AppointmentRequest ar) {
         int nextID = this.appointments.size() + 1;
         String uuid = String.format("A_%04d", nextID);
-        Appointment a = new Appointment(uuid, ar.getDoctorUUID(), ar.getPatientUUID(), ar.getDate(), false, false);
+        Appointment a = new Appointment(uuid, ar.getDoctorUUID(), ar.getPatientUUID(), ar.getDate(), false, false, "");
         this.appointments.put(uuid, a);
+    }
+
+    public void createMedicineOrder(String docUUID, String name, int qty, String description) {
+        int nextID = this.medicineOrders.size() + 1;
+        String uuid = String.format("MO_%04d", nextID);
+        this.medicineOrders.put(uuid, new MedicineOrder(uuid, docUUID, name, description, qty, false));
+    }
+
+    public void processMedicineOrder(MedicineOrder mo) {
+        // check if medicine with the name exists, then update it's quantity
+        Medicine medicine = null;
+        for(Map.Entry<String, Medicine> m : this.medicines.entrySet()) {
+            if (m.getValue().getName().equals(mo.getMedicineName())) {
+                medicine = m.getValue();
+                // medicine already exists so  we just update the quantity
+                medicine.updateQuantity(mo.getQuantity());
+                break;
+            }
+        }
+        
+        // check if medicine did not already exist? If so create a new medicine
+        if (null == medicine) {
+            int nextID = this.medicines.size() + 1;
+            String uuid = String.format("M_%04d", nextID);
+            medicine = new Medicine(uuid, mo.getDoctorUUID(), mo.getMedicineName(), mo.getMedicineDescription(), mo.getQuantity());
+        }
+        
+        // update our medicine list
+        this.medicines.put(medicine.getUUID(), medicine);
+        
+        // clear the request
+        this.medicineOrders.remove(mo.getUUID());
+    }
+
+    public void createPatientHistory(Appointment a) {
+        int nextID = this.patientHistories.size() + 1;
+        String uuid = String.format("MO_%04d", nextID);
+        PatientHistory ph = new PatientHistory(uuid, a.getPatientUUID(), "", a.getUUID());
+        this.patientHistories.put(uuid, ph);
     }
     
 }

@@ -6,12 +6,10 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import models.Administrator;
 import models.*;
-import view.MainFrame;
 
 /**
  *
@@ -202,5 +200,25 @@ public class Controller {
             }
         }
         return list;
+    }
+
+    public void submitMedicineOrder(String docUUID, String name, int qty, String description) {
+        this.modelHelper.createMedicineOrder(docUUID, name, qty, description);
+    }
+
+    public List<MedicineOrder> getMedicineOrders() {
+        return new ArrayList<MedicineOrder>(this.modelHelper.getMedicineOrders().values());
+    }
+
+    public void approveMedicineOrder(MedicineOrder mo) {
+        this.modelHelper.processMedicineOrder(mo);
+    }
+
+    public void createPatientHistory(Appointment a) {
+        this.modelHelper.createPatientHistory(a);
+    }
+
+    public Appointment getAppointment(String appointmentUUID) {
+        return this.modelHelper.getAppointments().get(appointmentUUID);
     }
 }
