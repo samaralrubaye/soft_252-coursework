@@ -39,7 +39,7 @@ public class DoctorRating implements IPersistable {
      * @return new DoctroRating object
      */
     public static DoctorRating newDoctorRating(String persistedTxt) {
-        String[] tokens = persistedTxt.split(",");
+        String[] tokens = persistedTxt.split("~");
         return new DoctorRating(
                 tokens[0].trim(),
                 tokens[1].trim(),
@@ -91,7 +91,7 @@ public class DoctorRating implements IPersistable {
 
     @Override
     public String toPersistableTxtFormat() {
-        return String.format("%s~%s~%s~%s~%f", this.uuid, this.patientUUID, this.uuid, this.comment, this.rating);
+        return String.format("%s~%s~%s~%s~%f", this.uuid, this.patientUUID, this.doctorUUID, this.comment, this.rating);
     }
     
 }

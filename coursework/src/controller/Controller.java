@@ -45,9 +45,9 @@ public class Controller {
     
     public double getDoctorRating(String doctorUUID) {
         int totalRecords = 0;
-        int totalRating = 0;
+        double totalRating = 0;
         for (Map.Entry<String, DoctorRating> rating : this.modelHelper.getDoctorRatings().entrySet()) {
-            if (rating.getKey().equals(doctorUUID))  {
+            if (rating.getValue().getDoctorUUID().equals(doctorUUID))  {
                 totalRecords++;
                 totalRating += rating.getValue().getRating();
             }
@@ -79,7 +79,7 @@ public class Controller {
     public List<PatientHistory> getPatientHistoryList(String uuid) {
         List<PatientHistory> list = new ArrayList<>();
         for (Map.Entry<String, PatientHistory> record : this.modelHelper.getPatientHistories().entrySet()) {
-            if (record.getKey().equals(uuid)) {
+            if (record.getValue().getPatientUUID().equals(uuid)) {
                 list.add(record.getValue());
             }
         }
@@ -171,7 +171,7 @@ public class Controller {
     }
 
     public List<Patient> getPatientList() {
-        return new ArrayList<Patient>(this.modelHelper.getPatients().values());
+        return new ArrayList<>(this.modelHelper.getPatients().values());
     }
 
     public void removePatient(String uuid) {
@@ -207,7 +207,7 @@ public class Controller {
     }
 
     public List<MedicineOrder> getMedicineOrders() {
-        return new ArrayList<MedicineOrder>(this.modelHelper.getMedicineOrders().values());
+        return new ArrayList<>(this.modelHelper.getMedicineOrders().values());
     }
 
     public void approveMedicineOrder(MedicineOrder mo) {
@@ -220,5 +220,29 @@ public class Controller {
 
     public Appointment getAppointment(String appointmentUUID) {
         return this.modelHelper.getAppointments().get(appointmentUUID);
+    }
+    
+    public List<Medicine> getMedicines() {
+        return new ArrayList<>(this.modelHelper.getMedicines().values());
+    }
+
+    public void submitDoctorPrescriptionMedicine(String medicineUUID, String appointmentUUID, int qty) {
+        this.modelHelper.submitDoctorPrescriptionMedicine(medicineUUID, appointmentUUID, qty);
+    }
+
+    public Medicine getMedicine(String medicineUUID) {
+        return this.modelHelper.getMedicines().get(medicineUUID);
+    }
+
+    public List<PrescriptionMedicine> getPrescriptions() {
+        return new ArrayList<>(this.modelHelper.getPrescriptionMedicines().values());
+    }
+
+    public void approveMedicinePrescriptionCollection(String uuid) {
+        this.modelHelper.approvePrescriptionMedicineCollection(uuid);
+    }
+
+    public void submitPatientAppointmentRating(String patientUUID, String doctorUUID, String comments, double rating) {
+        this.modelHelper.submitPatientAppointmentRating(patientUUID, doctorUUID, comments, rating);
     }
 }

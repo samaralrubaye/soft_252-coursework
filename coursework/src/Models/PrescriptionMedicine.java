@@ -11,21 +11,21 @@ package models;
 public class PrescriptionMedicine implements IPersistable {
     private final String medicineUUID;
     private final String uuid;
-    private final String prescriptionUUID;
+    private final String appointmentUUID;
     private final int medicineQuantity;
     
     /**
      * Constructor for creating a new PrescriptionMedicine
      * @param uuid - unique identifier of this PrescriptionMedicine
      * @param medicineUUID - unique identifier of the Medicine for this PrescriptionMedicine
-     * @param prescriptionUUID - unique identifier of the Prescription for this PrescriptionMedicine
+     * @param appointmentUUID - unique identifier of the Appointment for this PrescriptionMedicine
      * @param medicineQuantity - the quantity of the Medicine for this PrescriptionMedicine
      */
-    public PrescriptionMedicine(String uuid, String medicineUUID, String prescriptionUUID, int medicineQuantity) {
+    public PrescriptionMedicine(String uuid, String medicineUUID, String appointmentUUID, int medicineQuantity) {
         super();
         this.uuid = uuid;
         this.medicineUUID = medicineUUID;
-        this.prescriptionUUID = prescriptionUUID;
+        this.appointmentUUID = appointmentUUID;
         this.medicineQuantity = medicineQuantity;
     }
     
@@ -61,11 +61,11 @@ public class PrescriptionMedicine implements IPersistable {
     }
 
     /**
-     * Getter method for the associated Prescription unique identifier
+     * Getter method for the associated Appointment unique identifier
      * @return the associated Prescription unique identifier
      */
-    public String getPrescriptionUUID() {
-        return prescriptionUUID;
+    public String getAppointmentUUID() {
+        return appointmentUUID;
     }
 
     /**
@@ -78,6 +78,6 @@ public class PrescriptionMedicine implements IPersistable {
 
     @Override
     public String toPersistableTxtFormat() {
-        return String.format("%s,%s,%s%d", this.uuid, this.medicineUUID, this.prescriptionUUID, this.medicineQuantity);
+        return String.format("%s,%s,%s%d", this.uuid, this.medicineUUID, this.appointmentUUID, this.medicineQuantity);
     }
 }

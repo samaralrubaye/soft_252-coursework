@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -912,9 +911,25 @@ public class DatastoreHelper {
 
     public void createPatientHistory(Appointment a) {
         int nextID = this.patientHistories.size() + 1;
-        String uuid = String.format("MO_%04d", nextID);
-        PatientHistory ph = new PatientHistory(uuid, a.getPatientUUID(), "", a.getUUID());
+        String uuid = String.format("PH_%04d", nextID);
+        PatientHistory ph = new PatientHistory(uuid, a.getPatientUUID(), a.getUUID());
         this.patientHistories.put(uuid, ph);
+    }
+
+    public void submitDoctorPrescriptionMedicine(String medicineUUID, String appointmentUUID, int qty) {
+        int nextID = this.prescriptionMedicines.size() + 1;
+        String uuid = String.format("PM_%04d", nextID);
+        this.prescriptionMedicines.put(uuid, new PrescriptionMedicine(uuid, medicineUUID, appointmentUUID, qty));
+    }
+
+    public void approvePrescriptionMedicineCollection(String uuid) {
+        this.prescriptionMedicines.remove(uuid);
+    }
+
+    public void submitPatientAppointmentRating(String patientUUID, String doctorUUID, String comments, double rating) {
+        int nextID = this.doctorRatings.size() + 1;
+        String uuid = String.format("DR_%04d", nextID);
+        this.doctorRatings.put(uuid, new DoctorRating(uuid, patientUUID, doctorUUID, comments, rating));
     }
     
 }

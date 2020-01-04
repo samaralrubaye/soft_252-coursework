@@ -10,7 +10,6 @@ package models;
  */
 public class PatientHistory implements IPersistable {
     private final String uuid;
-    private final String prescriptionUUID;
     private final String appointmentUUID;
     private final String patientUUID;
     
@@ -18,14 +17,12 @@ public class PatientHistory implements IPersistable {
      * Constructor for creating a new PatientHistory
      * @param uuid - unique identifier for this PatientHistory
      * @param patientUUID - unique identifier for the patient that owns this PatientHistory
-     * @param prescriptionUUID - unique identifier of the Prescription for this PatientHistory
      * @param appointmentUUID  - unique identifier for the Appointment of this PatientHistory
      */
-    public PatientHistory(String uuid, String patientUUID, String prescriptionUUID, String appointmentUUID) {
+    public PatientHistory(String uuid, String patientUUID, String appointmentUUID) {
         super();
         this.uuid = uuid;
         this.patientUUID = patientUUID;
-        this.prescriptionUUID = prescriptionUUID;
         this.appointmentUUID = appointmentUUID;
     }
     
@@ -40,8 +37,7 @@ public class PatientHistory implements IPersistable {
         return new PatientHistory(
                 tokens[0],
                 tokens[1],
-                tokens[2],
-                tokens[3]
+                tokens[2]
         );
     }
     
@@ -52,14 +48,7 @@ public class PatientHistory implements IPersistable {
     public String getUUID() {
         return this.uuid;
     }
-    
-    /**
-     * Getter for the unique identifier of the Prescription associated to this PatientHistory
-     * @return String representing the Prescription unique identifier
-     */
-    public String getPrescriptionUUID() {
-        return this.prescriptionUUID;
-    }
+  
     
     /**
      * Getter for the unique identifier of the Appointment associated to this PatientHistory
@@ -80,7 +69,7 @@ public class PatientHistory implements IPersistable {
 
     @Override
     public String toPersistableTxtFormat() {
-        return String.format("%s,%s,%s,%s", this.uuid, this.patientUUID, this.prescriptionUUID, this.appointmentUUID);
+        return String.format("%s,%s,%s", this.uuid, this.patientUUID, this.appointmentUUID);
     }
     
 }

@@ -1,1 +1,1 @@
-A_0001~D_0004~P_0001~22/04/2020~false~false~This patient should be fine in 3 days after taking  the required dosages
+A_0001~D_0004~P_0001~22/04/2020~false~false~Should be fine after drugs and plenty rest
