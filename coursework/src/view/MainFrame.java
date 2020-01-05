@@ -5,6 +5,19 @@
  */
 package view;
 
+import models.AccountTerminationRequest;
+import models.Secretary;
+import models.Doctor;
+import models.MedicineOrder;
+import models.PatientHistory;
+import models.PrescriptionMedicine;
+import models.DoctorRating;
+import models.Administrator;
+import models.AppointmentRequest;
+import models.PatientCreationRequest;
+import models.Patient;
+import models.Appointment;
+import models.Medicine;
 import controller.Controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,7 +34,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.AbstractTableModel;
-import models.*;
 
 /**
  *

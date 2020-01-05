@@ -6,7 +6,6 @@
 package models;
 
 import java.util.Date;
-import models.AppointmentRequest;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -5,7 +5,6 @@
  */
 package models;
 
-import models.Appointment;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
