@@ -3,21 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package factoryModel;
+package models;
 
+import models.DoctorRating;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author engsa
  */
-public class adminConcreteTest {
+public class DoctorRatingTest {
     
-    public adminConcreteTest() {
+    public DoctorRatingTest() {
     }
     
     @BeforeClass
@@ -37,47 +39,37 @@ public class adminConcreteTest {
     }
 
     @Test
-    public void testGetID_s() {
+    public void testNewDoctorRating() {
     }
 
     @Test
-    public void testSetID_s() {
+    public void testGetDoctorUUID() {
     }
 
     @Test
-    public void testGetID_d() {
+    public void testGetPatientUUID() {
     }
 
     @Test
-    public void testSetID_d() {
+    public void testGetRating() {
     }
 
     @Test
-    public void testCreate() {
+    public void testGetUUID() {
     }
 
     @Test
-    public void testView() {
+    public void testToPersistableTxtFormat() {
     }
 
     @Test
-    public void testDeleteAdmin() {
-    }
-
-    @Test
-    public void testDeleteDoctor() {
-    }
-
-    @Test
-    public void testCreatDoctor() {
-    }
-
-    @Test
-    public void testDeleteSecretary() {
-    }
-
-    @Test
-    public void testCreateSecretary() {
+    public void testGetComment() {
+        System.out.println("getComment");
+        DoctorRating instance = null;
+        String expResult = "";
+        String result = instance.getComment();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
     }
     
 }

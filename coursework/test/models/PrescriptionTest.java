@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package models;
 
+import models.Prescription;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -63,6 +64,16 @@ public class PrescriptionTest {
 
     @Test
     public void testToPersistableTxtFormat() {
+    }
+
+    @Test
+    public void testGetUUID() {
+        System.out.println("getUUID");
+        Prescription instance = null;
+        String expResult = "";
+        String result = instance.getUUID();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
     }
     
 }

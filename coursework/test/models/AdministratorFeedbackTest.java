@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package factoryModel;
+package models;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author engsa
  */
-public class PatientConcreteTest {
+public class AdministratorFeedbackTest {
     
-    public PatientConcreteTest() {
+    public AdministratorFeedbackTest() {
     }
     
     @BeforeClass
@@ -37,7 +38,27 @@ public class PatientConcreteTest {
     }
 
     @Test
-    public void testSomeMethod() {
+    public void testNewAdministratorFeedback() {
+    }
+
+    @Test
+    public void testGetFeedback() {
+    }
+
+    @Test
+    public void testGetUUID() {
+    }
+
+    @Test
+    public void testGetDoctorUUID() {
+    }
+
+    @Test
+    public void testSetDelivered() {
+    }
+
+    @Test
+    public void testToPersistableTxtFormat() {
     }
     
 }

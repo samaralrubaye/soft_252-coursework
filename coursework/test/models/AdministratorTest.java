@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package models;
 
+import models.Administrator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author engsa
  */
-public class AdministratorFeedbackTest {
+public class AdministratorTest {
     
-    public AdministratorFeedbackTest() {
+    public AdministratorTest() {
     }
     
     @BeforeClass
@@ -38,27 +39,17 @@ public class AdministratorFeedbackTest {
     }
 
     @Test
-    public void testNewAdministratorFeedback() {
-    }
-
-    @Test
-    public void testGetFeedback() {
-    }
-
-    @Test
-    public void testGetUUID() {
-    }
-
-    @Test
-    public void testGetDoctorUUID() {
-    }
-
-    @Test
-    public void testSetDelivered() {
-    }
-
-    @Test
     public void testToPersistableTxtFormat() {
+    }
+
+    @Test
+    public void testNewAdministrator() {
+        System.out.println("newAdministrator");
+        String txtFormat = "";
+        Administrator expResult = null;
+        Administrator result = Administrator.newAdministrator(txtFormat);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
     }
     
 }

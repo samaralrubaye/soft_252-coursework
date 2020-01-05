@@ -3,22 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package models;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author engsa
  */
-public class PatientTest {
+public class SecretaryTest {
     
-    public PatientTest() {
+    public SecretaryTest() {
     }
     
     @BeforeClass
@@ -39,6 +38,10 @@ public class PatientTest {
 
     @Test
     public void testToPersistableTxtFormat() {
+    }
+
+    @Test
+    public void testNewSecretary() {
     }
     
 }

@@ -3,22 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package models;
 
-import models.User;
+import models.IPersistable;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author engsa
  */
-public class UserTest {
+public class IPersistableTest {
     
-    public UserTest() {
+    public IPersistableTest() {
     }
     
     @BeforeClass
@@ -41,22 +42,7 @@ public class UserTest {
     public void testToPersistableTxtFormat() {
     }
 
-    public class UserImpl extends User {
-
-        public UserImpl() {
-            super("", "", "", "");
-        }
-
-        public String toPersistableTxtFormat() {
-            return "";
-        }
-    }
-
-    public class UserImpl extends User {
-
-        public UserImpl() {
-            super("", "", "", "");
-        }
+    public class IPersistableImpl implements IPersistable {
 
         public String toPersistableTxtFormat() {
             return "";

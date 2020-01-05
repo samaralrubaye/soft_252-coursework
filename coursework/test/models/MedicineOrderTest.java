@@ -3,22 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package models;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author engsa
  */
-public class DoctorTest {
+public class MedicineOrderTest {
     
-    public DoctorTest() {
+    public MedicineOrderTest() {
     }
     
     @BeforeClass
@@ -35,6 +34,38 @@ public class DoctorTest {
     
     @After
     public void tearDown() {
+    }
+
+    @Test
+    public void testNewMedicineOrder() {
+    }
+
+    @Test
+    public void testGetDoctorUUID() {
+    }
+
+    @Test
+    public void testGetUUID() {
+    }
+
+    @Test
+    public void testGetMedicineName() {
+    }
+
+    @Test
+    public void testGetMedicineDescription() {
+    }
+
+    @Test
+    public void testGetQuantity() {
+    }
+
+    @Test
+    public void testIsCompleted() {
+    }
+
+    @Test
+    public void testSetCompleted() {
     }
 
     @Test

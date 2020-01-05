@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package models;
 
+import models.Appointment;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -75,6 +76,25 @@ public class AppointmentTest {
 
     @Test
     public void testToPersistableTxtFormat() {
+    }
+
+    @Test
+    public void testGetNotes() {
+        System.out.println("getNotes");
+        Appointment instance = null;
+        String expResult = "";
+        String result = instance.getNotes();
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testSetNotes() {
+        System.out.println("setNotes");
+        String notes = "";
+        Appointment instance = null;
+        instance.setNotes(notes);
+        fail("The test case is a prototype.");
     }
     
 }

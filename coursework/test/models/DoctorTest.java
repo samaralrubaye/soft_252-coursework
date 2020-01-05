@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package models;
 
-import models.IPersistable;
+import models.Doctor;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author engsa
  */
-public class IPersistableTest {
+public class DoctorTest {
     
-    public IPersistableTest() {
+    public DoctorTest() {
     }
     
     @BeforeClass
@@ -42,11 +42,14 @@ public class IPersistableTest {
     public void testToPersistableTxtFormat() {
     }
 
-    public class IPersistableImpl implements IPersistable {
-
-        public String toPersistableTxtFormat() {
-            return "";
-        }
+    @Test
+    public void testNewDoctor() {
+        System.out.println("newDoctor");
+        String txtFormat = "";
+        Doctor expResult = null;
+        Doctor result = Doctor.newDoctor(txtFormat);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
     }
     
 }

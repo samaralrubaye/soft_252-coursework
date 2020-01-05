@@ -1,0 +1,1202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="PatientManagementSystem">
+  <ClassDiagramComponents>
+    <Class name="DatastoreHelper" package="models" visibility="public" xPosition="-50.0" yPosition="1247.0">
+      <Fields>
+        <Field name="datastoreHelperSingleton" type="DatastoreHelper" visibility="private" isStatic="true"/>
+        <Field name="doctorTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="administratorTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="administratorFeedbackTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="appointmentTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="doctorRatingTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="medicineTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="medicineOrderTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="patientTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="patientHistoryTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="prescriptionTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="prescriptionMedicineTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="secretaryTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="appointmentRequestTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="accountTerminationRequestTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="patientCreationRequestTxt" type="String" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="administrators" type="HashMap&lt;String, Administrator&gt;" visibility="private"/>
+        <Field name="secretaries" type="HashMap&lt;String, Secretary&gt;" visibility="private"/>
+        <Field name="doctors" type="HashMap&lt;String, Doctor&gt;" visibility="private"/>
+        <Field name="patients" type="HashMap&lt;String, Patient&gt;" visibility="private"/>
+        <Field name="administratorFeedback" type="HashMap&lt;String, AdministratorFeedback&gt;" visibility="private"/>
+        <Field name="appointments" type="HashMap&lt;String, Appointment&gt;" visibility="private"/>
+        <Field name="doctorRatings" type="HashMap&lt;String, DoctorRating&gt;" visibility="private"/>
+        <Field name="medicines" type="HashMap&lt;String, Medicine&gt;" visibility="private"/>
+        <Field name="medicineOrders" type="HashMap&lt;String, MedicineOrder&gt;" visibility="private"/>
+        <Field name="patientHistories" type="HashMap&lt;String, PatientHistory&gt;" visibility="private"/>
+        <Field name="prescriptions" type="HashMap&lt;String, Prescription&gt;" visibility="private"/>
+        <Field name="prescriptionMedicines" type="HashMap&lt;String, PrescriptionMedicine&gt;" visibility="private"/>
+        <Field name="patientCreationRequests" type="HashMap&lt;String, PatientCreationRequest&gt;" visibility="private"/>
+        <Field name="appointmentRequests" type="List&lt;AppointmentRequest&gt;" visibility="private"/>
+        <Field name="accountTerminationRequests" type="List&lt;AccountTerminationRequest&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="getSingletonInstance" returnType="DatastoreHelper" visibility="public" isStatic="true"/>
+        <Method name="getAdministrators" returnType="HashMap&lt;String, Administrator&gt;" visibility="public"/>
+        <Method name="getSecretaries" returnType="HashMap&lt;String, Secretary&gt;" visibility="public"/>
+        <Method name="getDoctors" returnType="HashMap&lt;String, Doctor&gt;" visibility="public"/>
+        <Method name="getPatients" returnType="HashMap&lt;String, Patient&gt;" visibility="public"/>
+        <Method name="getAdministratorFeedback" returnType="HashMap&lt;String, AdministratorFeedback&gt;" visibility="public"/>
+        <Method name="getAppointments" returnType="HashMap&lt;String, Appointment&gt;" visibility="public"/>
+        <Method name="getDoctorRatings" returnType="HashMap&lt;String, DoctorRating&gt;" visibility="public"/>
+        <Method name="getMedicines" returnType="HashMap&lt;String, Medicine&gt;" visibility="public"/>
+        <Method name="getMedicineOrders" returnType="HashMap&lt;String, MedicineOrder&gt;" visibility="public"/>
+        <Method name="getPatientHistories" returnType="HashMap&lt;String, PatientHistory&gt;" visibility="public"/>
+        <Method name="getPrescriptions" returnType="HashMap&lt;String, Prescription&gt;" visibility="public"/>
+        <Method name="getPrescriptionMedicines" returnType="HashMap&lt;String, PrescriptionMedicine&gt;" visibility="public"/>
+        <Method name="getAppointmentRequests" returnType="List&lt;AppointmentRequest&gt;" visibility="public"/>
+        <Method name="getAccountTerminationRequests" returnType="List&lt;AccountTerminationRequest&gt;" visibility="public"/>
+        <Method name="getPatientCreationRequests" returnType="HashMap&lt;String, PatientCreationRequest&gt;" visibility="public"/>
+        <Method name="savePersistables" returnType="void" visibility="public">
+          <Argument type="String" name="fileName"/>
+          <Argument type="List&lt;IPersistable&gt;" name="persistables"/>
+        </Method>
+        <Method name="persistAllData" returnType="void" visibility="public"/>
+        <Method name="readAppointmentRequests" returnType="List&lt;AppointmentRequest&gt;" visibility="public"/>
+        <Method name="readAccountTerminationRequests" returnType="List&lt;AccountTerminationRequest&gt;" visibility="public"/>
+        <Method name="readAdministrators" returnType="Map&lt;String, Administrator&gt;" visibility="public"/>
+        <Method name="readAdministratorFeedback" returnType="Map&lt;String, AdministratorFeedback&gt;" visibility="public"/>
+        <Method name="readAppointments" returnType="Map&lt;String, Appointment&gt;" visibility="public"/>
+        <Method name="readDoctors" returnType="Map&lt;String, Doctor&gt;" visibility="public"/>
+        <Method name="readDoctorRatings" returnType="Map&lt;String, DoctorRating&gt;" visibility="public"/>
+        <Method name="readMedicines" returnType="Map&lt;String, Medicine&gt;" visibility="public"/>
+        <Method name="readMedicineOrders" returnType="Map&lt;String, MedicineOrder&gt;" visibility="public"/>
+        <Method name="readPatients" returnType="Map&lt;String, Patient&gt;" visibility="public"/>
+        <Method name="readPatientHistories" returnType="Map&lt;String, PatientHistory&gt;" visibility="public"/>
+        <Method name="readPrescriptions" returnType="Map&lt;String, Prescription&gt;" visibility="public"/>
+        <Method name="readPrescriptionMedicines" returnType="Map&lt;String, PrescriptionMedicine&gt;" visibility="public"/>
+        <Method name="readSecretaries" returnType="Map&lt;String, Secretary&gt;" visibility="public"/>
+        <Method name="readPatientCreationRequests" returnType="Map&lt;String, PatientCreationRequest&gt;" visibility="public"/>
+        <Method name="loadAllData" returnType="void" visibility="public"/>
+        <Method name="getAdmin" returnType="Administrator" visibility="public">
+          <Argument type="String" name="userID"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="getDoctor" returnType="Doctor" visibility="public">
+          <Argument type="String" name="userID"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="getSecretary" returnType="Secretary" visibility="public">
+          <Argument type="String" name="userID"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="getPatient" returnType="Patient" visibility="public">
+          <Argument type="String" name="userID"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="saveAppointmentRequest" returnType="void" visibility="public">
+          <Argument type="AppointmentRequest" name="ar"/>
+        </Method>
+        <Method name="saveAccountTerminationRequest" returnType="void" visibility="public">
+          <Argument type="AccountTerminationRequest" name="accountTerminationRequest"/>
+        </Method>
+        <Method name="createAdministrator" returnType="Administrator" visibility="public">
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="deleteDoctor" returnType="void" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="deleteSecretary" returnType="void" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="createDoctor" returnType="void" visibility="public">
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="createSecretary" returnType="void" visibility="public">
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="createAdministratorFeedback" returnType="void" visibility="public">
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="feedback"/>
+        </Method>
+        <Method name="createPatientCreationRequest" returnType="void" visibility="public">
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+          <Argument type="String" name="gender"/>
+          <Argument type="int" name="age"/>
+        </Method>
+        <Method name="createPatient" returnType="void" visibility="public">
+          <Argument type="PatientCreationRequest" name="pcr"/>
+        </Method>
+        <Method name="removePatientAccount" returnType="void" visibility="public">
+          <Argument type="AccountTerminationRequest" name="atr"/>
+        </Method>
+        <Method name="removePatientAccount" returnType="void" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="registerAppointmentFromRequest" returnType="void" visibility="public">
+          <Argument type="AppointmentRequest" name="ar"/>
+        </Method>
+        <Method name="createMedicineOrder" returnType="void" visibility="public">
+          <Argument type="String" name="docUUID"/>
+          <Argument type="String" name="name"/>
+          <Argument type="int" name="qty"/>
+          <Argument type="String" name="description"/>
+        </Method>
+        <Method name="processMedicineOrder" returnType="void" visibility="public">
+          <Argument type="MedicineOrder" name="mo"/>
+        </Method>
+        <Method name="createPatientHistory" returnType="void" visibility="public">
+          <Argument type="Appointment" name="a"/>
+        </Method>
+        <Method name="submitDoctorPrescriptionMedicine" returnType="void" visibility="public">
+          <Argument type="String" name="medicineUUID"/>
+          <Argument type="String" name="appointmentUUID"/>
+          <Argument type="int" name="qty"/>
+        </Method>
+        <Method name="approvePrescriptionMedicineCollection" returnType="void" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="submitPatientAppointmentRating" returnType="void" visibility="public">
+          <Argument type="String" name="patientUUID"/>
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="comments"/>
+          <Argument type="double" name="rating"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PatientHistory" package="models" visibility="public" xPosition="40.0" yPosition="8246.0">
+      <Fields>
+        <Field name="uuid" type="String" visibility="private" isFinal="true"/>
+        <Field name="appointmentUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="patientUUID" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="patientUUID"/>
+          <Argument type="String" name="appointmentUUID"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newPatientHistory" returnType="PatientHistory" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="getAppointmentUUID" returnType="String" visibility="public"/>
+        <Method name="getPatientUUID" returnType="String" visibility="public"/>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="AppointmentRequest" package="models" visibility="public" xPosition="595.0" yPosition="8638.0">
+      <Fields>
+        <Field name="doctorUUID" type="String" visibility="private"/>
+        <Field name="patientUUID" type="String" visibility="private"/>
+        <Field name="date" type="Date" visibility="private"/>
+        <Field name="approved" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="patientUUID"/>
+          <Argument type="Date" name="date"/>
+          <Argument type="boolean" name="approved"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newAppointmentRequest" returnType="AppointmentRequest" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+        <Method name="getDoctorUUID" returnType="String" visibility="public"/>
+        <Method name="setApproved" returnType="void" visibility="public">
+          <Argument type="boolean" name="approved"/>
+        </Method>
+        <Method name="getPatientUUID" returnType="String" visibility="public"/>
+        <Method name="getDate" returnType="Date" visibility="public"/>
+        <Method name="isApproved" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Appointment" package="models" visibility="public" xPosition="1186.0" yPosition="8638.0">
+      <Fields>
+        <Field name="sdf" type="SimpleDateFormat" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="date" type="Date" visibility="private" isFinal="true"/>
+        <Field name="uuid" type="String" visibility="private" isFinal="true"/>
+        <Field name="doctorUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="patientUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="patientNotified" type="boolean" visibility="private"/>
+        <Field name="doctorNotified" type="boolean" visibility="private"/>
+        <Field name="notes" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="patientUUID"/>
+          <Argument type="Date" name="date"/>
+          <Argument type="boolean" name="patientNotified"/>
+          <Argument type="boolean" name="doctorNotified"/>
+          <Argument type="String" name="notes"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newAppointment" returnType="Appointment" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getDate" returnType="Date" visibility="public"/>
+        <Method name="getNotes" returnType="String" visibility="public"/>
+        <Method name="setNotes" returnType="void" visibility="public">
+          <Argument type="String" name="notes"/>
+        </Method>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="getDoctorUUID" returnType="String" visibility="public"/>
+        <Method name="getPatientUUID" returnType="String" visibility="public"/>
+        <Method name="getPatientNotified" returnType="boolean" visibility="public"/>
+        <Method name="getDoctorNotified" returnType="boolean" visibility="public"/>
+        <Method name="setDoctorNotified" returnType="void" visibility="public">
+          <Argument type="boolean" name="notified"/>
+        </Method>
+        <Method name="setPatientNotified" returnType="void" visibility="public">
+          <Argument type="boolean" name="notified"/>
+        </Method>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Prescription" package="models" visibility="public" xPosition="29.0" yPosition="8965.0">
+      <Fields>
+        <Field name="uuid" type="String" visibility="private" isFinal="true"/>
+        <Field name="patientUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="doctorUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="description" type="String" visibility="private" isFinal="true"/>
+        <Field name="appointmentUUID" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="patientUUID"/>
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="appointmentUUID"/>
+          <Argument type="String" name="description"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newPrescription" returnType="Prescription" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="getPatientUUID" returnType="String" visibility="public"/>
+        <Method name="getDoctorUUID" returnType="String" visibility="public"/>
+        <Method name="getDescription" returnType="String" visibility="public"/>
+        <Method name="getAppointmentUUID" returnType="String" visibility="public"/>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="User" package="models" visibility="public" isAbstract="true" xPosition="1315.0" yPosition="6787.0">
+      <Fields>
+        <Field name="givenName" type="String" visibility="protected"/>
+        <Field name="lastName" type="String" visibility="protected"/>
+        <Field name="address" type="String" visibility="protected"/>
+        <Field name="uuid" type="String" visibility="protected"/>
+        <Field name="password" type="String" visibility="protected"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="getGivenName" returnType="String" visibility="public"/>
+        <Method name="getLastName" returnType="String" visibility="public"/>
+        <Method name="getAddress" returnType="String" visibility="public"/>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public" isAbstract="true"/>
+      </Methods>
+    </Class>
+    <Class name="PrescriptionMedicine" package="models" visibility="public" xPosition="853.0" yPosition="7868.0">
+      <Fields>
+        <Field name="medicineUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="uuid" type="String" visibility="private" isFinal="true"/>
+        <Field name="appointmentUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="medicineQuantity" type="int" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="medicineUUID"/>
+          <Argument type="String" name="appointmentUUID"/>
+          <Argument type="int" name="medicineQuantity"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newPrescriptionMedicine" returnType="PrescriptionMedicine" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getMedicineUUID" returnType="String" visibility="public"/>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="getAppointmentUUID" returnType="String" visibility="public"/>
+        <Method name="getMedicineQuantity" returnType="int" visibility="public"/>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Secretary" package="models" visibility="public" xPosition="674.0" yPosition="7402.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newSecretary" returnType="Secretary" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Doctor" package="models" visibility="public" xPosition="674.0" yPosition="7559.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newDoctor" returnType="Doctor" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="MedicineOrder" package="models" visibility="public" xPosition="40.0" yPosition="7868.0">
+      <Fields>
+        <Field name="doctorUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="uuid" type="String" visibility="private" isFinal="true"/>
+        <Field name="medicineName" type="String" visibility="private" isFinal="true"/>
+        <Field name="medicineDescription" type="String" visibility="private" isFinal="true"/>
+        <Field name="quantity" type="int" visibility="private" isFinal="true"/>
+        <Field name="completed" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="medicineName"/>
+          <Argument type="String" name="medicineDescription"/>
+          <Argument type="int" name="quantity"/>
+          <Argument type="boolean" name="completed"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newMedicineOrder" returnType="MedicineOrder" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getDoctorUUID" returnType="String" visibility="public"/>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="getMedicineName" returnType="String" visibility="public"/>
+        <Method name="getMedicineDescription" returnType="String" visibility="public"/>
+        <Method name="getQuantity" returnType="int" visibility="public"/>
+        <Method name="isCompleted" returnType="boolean" visibility="public"/>
+        <Method name="setCompleted" returnType="void" visibility="public">
+          <Argument type="boolean" name="completed"/>
+        </Method>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Administrator" package="models" visibility="public" xPosition="674.0" yPosition="7708.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newAdministrator" returnType="Administrator" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="AdministratorFeedback" package="models" visibility="public" xPosition="518.0" yPosition="8246.0">
+      <Fields>
+        <Field name="uuid" type="String" visibility="private" isFinal="true"/>
+        <Field name="doctorUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="feedback" type="String" visibility="private" isFinal="true"/>
+        <Field name="delivered" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="boolean" name="delivered"/>
+          <Argument type="String" name="feedback"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newAdministratorFeedback" returnType="AdministratorFeedback" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getFeedback" returnType="String" visibility="public"/>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="getDoctorUUID" returnType="String" visibility="public"/>
+        <Method name="setDelivered" returnType="void" visibility="public">
+          <Argument type="boolean" name="delivered"/>
+        </Method>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="PatientCreationRequest" package="models" visibility="public" xPosition="1111.0" yPosition="8219.0">
+      <Fields>
+        <Field name="uuid" type="String" visibility="private" isFinal="true"/>
+        <Field name="givenName" type="String" visibility="private" isFinal="true"/>
+        <Field name="lastName" type="String" visibility="private" isFinal="true"/>
+        <Field name="address" type="String" visibility="private" isFinal="true"/>
+        <Field name="gender" type="String" visibility="private" isFinal="true"/>
+        <Field name="password" type="String" visibility="private" isFinal="true"/>
+        <Field name="age" type="int" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="gender"/>
+          <Argument type="String" name="password"/>
+          <Argument type="int" name="age"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newPatientCreationRequest" returnType="PatientCreationRequest" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getPatient" returnType="Patient" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="getGivenName" returnType="String" visibility="public"/>
+        <Method name="getLastName" returnType="String" visibility="public"/>
+        <Method name="getAddress" returnType="String" visibility="public"/>
+        <Method name="getGender" returnType="String" visibility="public"/>
+        <Method name="getAge" returnType="int" visibility="public"/>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="AccountTerminationRequest" package="models" visibility="public" xPosition="40.0" yPosition="8534.0">
+      <Fields>
+        <Field name="patientUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="approved" type="boolean" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="patientUUID"/>
+          <Argument type="boolean" name="approved"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newAccountTerminationRequest" returnType="AccountTerminationRequest" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getPatientUUID" returnType="String" visibility="public"/>
+        <Method name="isApproved" returnType="boolean" visibility="public"/>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+        <Method name="equals" returnType="boolean" visibility="public">
+          <Argument type="Object" name="obj"/>
+        </Method>
+        <Method name="hashCode" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Medicine" package="models" visibility="public" xPosition="40.0" yPosition="7509.0">
+      <Fields>
+        <Field name="uuid" type="String" visibility="private" isFinal="true"/>
+        <Field name="doctorUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="quantity" type="int" visibility="private"/>
+        <Field name="name" type="String" visibility="private" isFinal="true"/>
+        <Field name="description" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="name"/>
+          <Argument type="String" name="description"/>
+          <Argument type="int" name="quantity"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newMedicine" returnType="Medicine" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="getDoctorUUID" returnType="String" visibility="public"/>
+        <Method name="getQuantity" returnType="int" visibility="public"/>
+        <Method name="getName" returnType="String" visibility="public"/>
+        <Method name="getDescription" returnType="String" visibility="public"/>
+        <Method name="updateQuantity" returnType="void" visibility="public">
+          <Argument type="int" name="difference"/>
+        </Method>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="DoctorRating" package="models" visibility="public" xPosition="40.0" yPosition="7181.0">
+      <Fields>
+        <Field name="rating" type="double" visibility="private" isFinal="true"/>
+        <Field name="doctorUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="patientUUID" type="String" visibility="private" isFinal="true"/>
+        <Field name="uuid" type="String" visibility="private" isFinal="true"/>
+        <Field name="comment" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="patientUUID"/>
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="comment"/>
+          <Argument type="double" name="rating"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newDoctorRating" returnType="DoctorRating" visibility="public" isStatic="true">
+          <Argument type="String" name="persistedTxt"/>
+        </Method>
+        <Method name="getDoctorUUID" returnType="String" visibility="public"/>
+        <Method name="getPatientUUID" returnType="String" visibility="public"/>
+        <Method name="getRating" returnType="double" visibility="public"/>
+        <Method name="getUUID" returnType="String" visibility="public"/>
+        <Method name="getComment" returnType="String" visibility="public"/>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Patient" package="models" visibility="public" xPosition="674.0" yPosition="7181.0">
+      <Fields>
+        <Field name="gender" type="String" visibility="private" isFinal="true"/>
+        <Field name="age" type="int" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="uuid"/>
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="gender"/>
+          <Argument type="String" name="password"/>
+          <Argument type="int" name="age"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="newPatient" returnType="Patient" visibility="public" isStatic="true">
+          <Argument type="String" name="txtFormat"/>
+        </Method>
+        <Method name="getAge" returnType="int" visibility="public"/>
+        <Method name="getGender" returnType="String" visibility="public"/>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Controller" package="controller" visibility="public" xPosition="10.0" yPosition="20.0">
+      <Fields>
+        <Field name="modelHelper" type="DatastoreHelper" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DatastoreHelper" name="dh"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="loginAdmin" returnType="Administrator" visibility="public">
+          <Argument type="String" name="userID"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="loginPatient" returnType="Patient" visibility="public">
+          <Argument type="String" name="userID"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="loginSecretary" returnType="Secretary" visibility="public">
+          <Argument type="String" name="userID"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="loginDoctor" returnType="Doctor" visibility="public">
+          <Argument type="String" name="userID"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="getDoctorsList" returnType="List&lt;Doctor&gt;" visibility="public"/>
+        <Method name="getDoctorRating" returnType="double" visibility="public">
+          <Argument type="String" name="doctorUUID"/>
+        </Method>
+        <Method name="persistData" returnType="void" visibility="public"/>
+        <Method name="submitAppointmentRequest" returnType="void" visibility="public">
+          <Argument type="AppointmentRequest" name="ar"/>
+        </Method>
+        <Method name="requestAccountTermination" returnType="void" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="getPrescription" returnType="Prescription" visibility="public">
+          <Argument type="String" name="prescriptionUUID"/>
+        </Method>
+        <Method name="getPatientHistoryList" returnType="List&lt;PatientHistory&gt;" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="getPatientAppointmentList" returnType="List&lt;Appointment&gt;" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="getDoctor" returnType="Doctor" visibility="public">
+          <Argument type="String" name="doctorUUID"/>
+        </Method>
+        <Method name="createAdmin" returnType="Administrator" visibility="public">
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="getSecretariesList" returnType="List&lt;Secretary&gt;" visibility="public"/>
+        <Method name="deleteDoctor" returnType="void" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="deleteSecretary" returnType="void" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="createDoctor" returnType="void" visibility="public">
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="createSecretary" returnType="void" visibility="public">
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="getPatient" returnType="Patient" visibility="public">
+          <Argument type="String" name="patientUUID"/>
+        </Method>
+        <Method name="getDoctorRatings" returnType="List&lt;DoctorRating&gt;" visibility="public">
+          <Argument type="String" name="docUUID"/>
+        </Method>
+        <Method name="createAdministratorFeedback" returnType="void" visibility="public">
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="feedback"/>
+        </Method>
+        <Method name="createPatientCreationRequest" returnType="void" visibility="public">
+          <Argument type="String" name="givenName"/>
+          <Argument type="String" name="lastName"/>
+          <Argument type="String" name="address"/>
+          <Argument type="String" name="password"/>
+          <Argument type="String" name="gender"/>
+          <Argument type="int" name="age"/>
+        </Method>
+        <Method name="loadAllData" returnType="void" visibility="public"/>
+        <Method name="getPatientCreationRequestList" returnType="List&lt;PatientCreationRequest&gt;" visibility="public"/>
+        <Method name="approvePatientAccountCreation" returnType="void" visibility="public">
+          <Argument type="PatientCreationRequest" name="pcr"/>
+        </Method>
+        <Method name="getAccountTerminationRequests" returnType="List&lt;AccountTerminationRequest&gt;" visibility="public"/>
+        <Method name="approvePatientAccountRemoval" returnType="void" visibility="public">
+          <Argument type="AccountTerminationRequest" name="atr"/>
+        </Method>
+        <Method name="getPatientList" returnType="List&lt;Patient&gt;" visibility="public"/>
+        <Method name="removePatient" returnType="void" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="getOpenAppointmentRequests" returnType="List&lt;AppointmentRequest&gt;" visibility="public"/>
+        <Method name="registerAppointmentFromRequest" returnType="void" visibility="public">
+          <Argument type="AppointmentRequest" name="ar"/>
+        </Method>
+        <Method name="getDoctorAppointmentList" returnType="List&lt;Appointment&gt;" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="submitMedicineOrder" returnType="void" visibility="public">
+          <Argument type="String" name="docUUID"/>
+          <Argument type="String" name="name"/>
+          <Argument type="int" name="qty"/>
+          <Argument type="String" name="description"/>
+        </Method>
+        <Method name="getMedicineOrders" returnType="List&lt;MedicineOrder&gt;" visibility="public"/>
+        <Method name="approveMedicineOrder" returnType="void" visibility="public">
+          <Argument type="MedicineOrder" name="mo"/>
+        </Method>
+        <Method name="createPatientHistory" returnType="void" visibility="public">
+          <Argument type="Appointment" name="a"/>
+        </Method>
+        <Method name="getAppointment" returnType="Appointment" visibility="public">
+          <Argument type="String" name="appointmentUUID"/>
+        </Method>
+        <Method name="getMedicines" returnType="List&lt;Medicine&gt;" visibility="public"/>
+        <Method name="submitDoctorPrescriptionMedicine" returnType="void" visibility="public">
+          <Argument type="String" name="medicineUUID"/>
+          <Argument type="String" name="appointmentUUID"/>
+          <Argument type="int" name="qty"/>
+        </Method>
+        <Method name="getMedicine" returnType="Medicine" visibility="public">
+          <Argument type="String" name="medicineUUID"/>
+        </Method>
+        <Method name="getPrescriptions" returnType="List&lt;PrescriptionMedicine&gt;" visibility="public"/>
+        <Method name="approveMedicinePrescriptionCollection" returnType="void" visibility="public">
+          <Argument type="String" name="uuid"/>
+        </Method>
+        <Method name="submitPatientAppointmentRating" returnType="void" visibility="public">
+          <Argument type="String" name="patientUUID"/>
+          <Argument type="String" name="doctorUUID"/>
+          <Argument type="String" name="comments"/>
+          <Argument type="double" name="rating"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MainFrame" package="view" visibility="public" xPosition="920.0" yPosition="820.0">
+      <Fields>
+        <Field name="controller" type="Controller" visibility="private"/>
+        <Field name="patient" type="Patient" visibility="private"/>
+        <Field name="administrator" type="Administrator" visibility="private"/>
+        <Field name="patientsDoctorsPopupMenu" type="JPopupMenu" visibility="private"/>
+        <Field name="adminDoctorsPopupMenu" type="JPopupMenu" visibility="private"/>
+        <Field name="adminSecretariesPopupMenu" type="JPopupMenu" visibility="private"/>
+        <Field name="secretary" type="Secretary" visibility="private"/>
+        <Field name="doctor" type="Doctor" visibility="private"/>
+        <Field name="selectedDoctorForAppointment" type="Doctor" visibility="private"/>
+        <Field name="selectedPatientForAppointment" type="Patient" visibility="private"/>
+        <Field name="selectedAppointment" type="Appointment" visibility="private"/>
+        <Field name="jBtnLogin" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jBtnSecretaryLogOut" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jBtnViewCreateAdmin" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jBtnViewLogin" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jBtnViewRquestPatientAcc" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton2" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonAdminLogout" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonDoctorLogout" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel10" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel11" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel12" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel13" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel14" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel15" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel16" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel17" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel18" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel19" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel20" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel21" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel22" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel23" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel24" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel25" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel26" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel27" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel28" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel29" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel30" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel31" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel32" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel33" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel34" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel35" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel36" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel37" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel38" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel39" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel40" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel41" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel42" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel43" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel44" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel45" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel46" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel47" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel5" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel51" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel6" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel7" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel8" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel9" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel10" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel11" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel12" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel13" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel14" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel3" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel4" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel5" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel6" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel7" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel8" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel9" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane10" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane11" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane12" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane13" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane14" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane15" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane16" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane17" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane18" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane19" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane2" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane20" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane3" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane4" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane5" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane6" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane7" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane8" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane9" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jSeparator1" type="javax.swing.JSeparator" visibility="private"/>
+        <Field name="jTabbedPane1" type="javax.swing.JTabbedPane" visibility="private"/>
+        <Field name="jTabbedPane2" type="javax.swing.JTabbedPane" visibility="private"/>
+        <Field name="jTabbedPane3" type="javax.swing.JTabbedPane" visibility="private"/>
+        <Field name="jTabbedPane4" type="javax.swing.JTabbedPane" visibility="private"/>
+        <Field name="jbtCancelPrescrptionDialog" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtPantientCancelSubmitRating" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnAdminAddDoctor" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnAdminAddSecretary" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnAdminViewDoctorRatingCancel" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnAdminViewDoctorRatingSubmit" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnAppointmentDialogSubmit" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnCancelCreateMedicineDialog" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnCancelDocViewPatientHistory" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnCancelRequestAppointmentDialog" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnCreateAdminSubmit" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnCreateDoctorCancel" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnCreateDoctorSubmit" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnCreateMedicine" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnCreateSecretaryCancel" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnCreateSecretarySubmit" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnDialogAppointmentCancel" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnDoctorCreateMedicine" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnPatientSubmitRating" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnSubmitAppointment" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnSubmitPatientAccountRequest" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jbtnSubmitPrescription" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jdAdminViewDoctorRatings" type="javax.swing.JDialog" visibility="private"/>
+        <Field name="jdCreateDoctor" type="javax.swing.JDialog" visibility="private"/>
+        <Field name="jdCreateMedicine" type="javax.swing.JDialog" visibility="private"/>
+        <Field name="jdCreateSecretary" type="javax.swing.JDialog" visibility="private"/>
+        <Field name="jdDoctorAppointment" type="javax.swing.JDialog" visibility="private"/>
+        <Field name="jdDoctorPrescribeMedicine" type="javax.swing.JDialog" visibility="private"/>
+        <Field name="jdDoctorViewPatientHistory" type="javax.swing.JDialog" visibility="private"/>
+        <Field name="jdPatientRateAppointment" type="javax.swing.JDialog" visibility="private"/>
+        <Field name="jdRequestAppointment" type="javax.swing.JDialog" visibility="private"/>
+        <Field name="jftAppointSchedulerDate" type="javax.swing.JFormattedTextField" visibility="private"/>
+        <Field name="jlblAdminName" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jlblAdminViewDoctorRatingsDoctorName" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jlblDoctorName" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jlblPatientName" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jlblSecretaryName" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jpAdminRoot" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpCreateAdmin" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpDoctorRoot" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpLRC" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpLoginRootView" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpPatientRoot" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpSecretaryRoot" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpSubmitPatientCreationRequest" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jpfCreateAdminPassword" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="jpfCreateDoctorPassword" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="jpfCreateSecretaryPassword" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="jpfPassword" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="jtPatientHistoryDialog" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtaAdminViewDoctorRatingComment" type="javax.swing.JTextArea" visibility="private"/>
+        <Field name="jtaAppointmentDoctorNotes" type="javax.swing.JTextArea" visibility="private"/>
+        <Field name="jtaMedicineDescription" type="javax.swing.JTextArea" visibility="private"/>
+        <Field name="jtaPatientAppointmentComments" type="javax.swing.JTextArea" visibility="private"/>
+        <Field name="jtblAccountRemovalRequests" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblAdminAllDoctors" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblAdminAllSecretaries" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblAdminViewDoctorRatings" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblAllDoctors" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblAppointmentsRequests" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblDoctorAppointments" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblDoctorPatients" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblMedicineCollection" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblMedicineStockRequests" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblMedicinesForPrescription" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblMyAppointments" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblMyHistory" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblPatientAccCreationRequests" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtblSecretaryPatients" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jtfAddress" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAdminViewDoctorRating" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAdminViewDoctorRatingComment" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAdminViewDoctorRatingPatientName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAge" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAppointSchedulerPatientName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAppointmentDate" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAppointmentPatientAddress" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAppointmentPatientAge" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAppointmentPatientName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfAppointmentSchedulerDoctorName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfCreateAdminAddress" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfCreateAdminGivenName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfCreateAdminLastName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfCreateDoctorAddress" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfCreateDoctorGivenName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfCreateDoctorLastName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfCreateSecretaryAddress" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfCreateSecretaryGivenName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfCreateSecretaryLastName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfGender" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfGivenName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfLastName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfMedicineName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfMedicineQty" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfPassword" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="jtfPatientAppointmentRating" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfPatientHistoryDialogPatientName" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfPrescriptionQty" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jtfUserID" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="pLoginContainer" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="Controller" name="controller"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initPopupMenus" returnType="void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="jBtnViewLoginActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="switchToLogin" returnType="void" visibility="private"/>
+        <Method name="jBtnViewRquestPatientAccActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBtnViewCreateAdminActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBtnLoginActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton2ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnCancelRequestAppointmentDialogActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnSubmitAppointmentActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="formWindowClosing" returnType="void" visibility="private">
+          <Argument type="java.awt.event.WindowEvent" name="evt"/>
+        </Method>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnCreateAdminSubmitActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonAdminLogoutActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnCreateDoctorSubmitActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnCreateDoctorCancelActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnCreateSecretarySubmitActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnCreateSecretaryCancelActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnAdminAddDoctorActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnAdminAddSecretaryActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnAdminViewDoctorRatingSubmitActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnAdminViewDoctorRatingCancelActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jBtnSecretaryLogOutActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnSubmitPatientAccountRequestActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonDoctorLogoutActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnDoctorCreateMedicineActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnCreateMedicineActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnCancelCreateMedicineDialogActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnAppointmentDialogSubmitActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnDialogAppointmentCancelActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnSubmitPrescriptionActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtCancelPrescrptionDialogActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnPatientSubmitRatingActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtPantientCancelSubmitRatingActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jbtnCancelDocViewPatientHistoryActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="switchToAdminMode" returnType="void" visibility="private">
+          <Argument type="Administrator" name="admin"/>
+        </Method>
+        <Method name="switchToDoctorMode" returnType="void" visibility="private">
+          <Argument type="Doctor" name="doctor"/>
+        </Method>
+        <Method name="switchToPatientMode" returnType="void" visibility="private">
+          <Argument type="Patient" name="patient"/>
+        </Method>
+        <Method name="switchToSecretaryMode" returnType="void" visibility="private">
+          <Argument type="Secretary" name="secretary"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Application" package="main" visibility="public" xPosition="949.0" yPosition="107.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="IPersistable" package="models" visibility="public" xPosition="1758.0" yPosition="7462.0">
+      <Methods>
+        <Method name="toPersistableTxtFormat" returnType="String" visibility="public"/>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.Appointment" target="models.IPersistable"/>
+    <UseRelation source="models.DatastoreHelper" target="models.IPersistable" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="models.Doctor" target="models.User"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.DoctorRating" target="models.IPersistable"/>
+    <IsRelation name="is" source="models.Administrator" target="models.User"/>
+    <UseRelation source="controller.Controller" target="models.Administrator" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.DatastoreHelper" target="models.DatastoreHelper" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.PatientCreationRequest" target="models.IPersistable"/>
+    <UseRelation source="models.PrescriptionMedicine" target="models.Medicine" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.DoctorRating" target="models.DoctorRating" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.DatastoreHelper" target="models.Prescription" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.DatastoreHelper" target="models.AccountTerminationRequest" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="patientHistories" source="models.DatastoreHelper" target="models.PatientHistory" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, PatientHistory&gt;"/>
+    <HasRelation name="datastoreHelperSingleton" source="models.DatastoreHelper" target="models.DatastoreHelper" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="modelHelper" source="controller.Controller" target="models.DatastoreHelper" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="doctors" source="models.DatastoreHelper" target="models.Doctor" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Doctor&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.AccountTerminationRequest" target="models.IPersistable"/>
+    <UseRelation source="models.DatastoreHelper" target="models.Medicine" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="prescriptionMedicines" source="models.DatastoreHelper" target="models.PrescriptionMedicine" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, PrescriptionMedicine&gt;"/>
+    <UseRelation source="models.DatastoreHelper" target="models.Administrator" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.User" target="models.IPersistable"/>
+    <UseRelation source="view.MainFrame" target="models.Doctor" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="selectedAppointment" source="view.MainFrame" target="models.Appointment" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.MedicineOrder" target="models.Medicine" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controller.Controller" target="models.Secretary" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="models.Secretary" target="models.User"/>
+    <UseRelation source="view.MainFrame" target="models.Patient" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controller.Controller" target="models.DoctorRating" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="secretaries" source="models.DatastoreHelper" target="models.Secretary" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Secretary&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.Medicine" target="models.IPersistable"/>
+    <HasRelation name="medicineOrders" source="models.DatastoreHelper" target="models.MedicineOrder" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, MedicineOrder&gt;"/>
+    <HasRelation name="appointments" source="models.DatastoreHelper" target="models.Appointment" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Appointment&gt;"/>
+    <HasRelation name="doctorRatings" source="models.DatastoreHelper" target="models.DoctorRating" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, DoctorRating&gt;"/>
+    <HasRelation name="secretary" source="view.MainFrame" target="models.Secretary" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="controller" source="view.MainFrame" target="controller.Controller" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="controller" source="main.Application" target="controller.Controller" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.AppointmentRequest" target="models.IPersistable"/>
+    <UseRelation source="models.PatientHistory" target="models.Patient" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controller.Controller" target="models.Medicine" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="patients" source="models.DatastoreHelper" target="models.Patient" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Patient&gt;"/>
+    <UseRelation source="models.DatastoreHelper" target="models.Secretary" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="appointmentRequests" source="models.DatastoreHelper" target="models.AppointmentRequest" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;AppointmentRequest&gt;"/>
+    <UseRelation source="controller.Controller" target="models.AccountTerminationRequest" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.MedicineOrder" target="models.IPersistable"/>
+    <HasRelation name="patientCreationRequests" source="models.DatastoreHelper" target="models.PatientCreationRequest" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, PatientCreationRequest&gt;"/>
+    <HasRelation name="administrator" source="view.MainFrame" target="models.Administrator" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.Secretary" target="models.Secretary" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controller.Controller" target="models.Prescription" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.DatastoreHelper" target="models.DoctorRating" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.PatientCreationRequest" target="models.Patient" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.PatientHistory" target="models.IPersistable"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.Administrator" target="models.IPersistable"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.AdministratorFeedback" target="models.IPersistable"/>
+    <HasRelation name="administrators" source="models.DatastoreHelper" target="models.Administrator" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Administrator&gt;"/>
+    <UseRelation source="models.Appointment" target="models.Appointment" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.AccountTerminationRequest" target="models.AccountTerminationRequest" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="models.Patient" target="models.User"/>
+    <UseRelation source="models.Medicine" target="models.Medicine" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="selectedDoctorForAppointment" source="view.MainFrame" target="models.Doctor" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="administratorFeedback" source="models.DatastoreHelper" target="models.AdministratorFeedback" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, AdministratorFeedback&gt;"/>
+    <HasRelation name="accountTerminationRequests" source="models.DatastoreHelper" target="models.AccountTerminationRequest" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;AccountTerminationRequest&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.Prescription" target="models.IPersistable"/>
+    <HasRelation name="patient" source="view.MainFrame" target="models.Patient" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="models.PrescriptionMedicine" target="models.IPersistable"/>
+    <HasRelation name="datastoreHelper" source="main.Application" target="models.DatastoreHelper" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="models.AppointmentRequest" target="models.Appointment" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.DatastoreHelper" target="models.AdministratorFeedback" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controller.Controller" target="models.Doctor" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controller.Controller" target="models.Patient" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="doctor" source="view.MainFrame" target="models.Doctor" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.Prescription" target="models.Prescription" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mainFrame" source="main.Application" target="view.MainFrame" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="models.DatastoreHelper" target="models.Doctor" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controller.Controller" target="models.Appointment" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.Administrator" target="models.Administrator" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="view.MainFrame" target="models.Administrator" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.DatastoreHelper" target="models.Patient" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="view.MainFrame" target="models.Secretary" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="selectedPatientForAppointment" source="view.MainFrame" target="models.Patient" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.Doctor" target="models.Doctor" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="medicines" source="models.DatastoreHelper" target="models.Medicine" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Medicine&gt;"/>
+    <UseRelation source="models.DatastoreHelper" target="models.Appointment" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="prescriptions" source="models.DatastoreHelper" target="models.Prescription" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Prescription&gt;"/>
+    <UseRelation source="models.Patient" target="models.Patient" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.AdministratorFeedback" target="models.AdministratorFeedback" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

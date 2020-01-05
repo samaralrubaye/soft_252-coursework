@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package models;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author engsa
  */
-public class DoctorRatingTest {
+public class PatientHistoryTest {
     
-    public DoctorRatingTest() {
+    public PatientHistoryTest() {
     }
     
     @BeforeClass
@@ -38,23 +38,23 @@ public class DoctorRatingTest {
     }
 
     @Test
-    public void testNewDoctorRating() {
-    }
-
-    @Test
-    public void testGetDoctorUUID() {
-    }
-
-    @Test
-    public void testGetPatientUUID() {
-    }
-
-    @Test
-    public void testGetRating() {
+    public void testNewPatientHistory() {
     }
 
     @Test
     public void testGetUUID() {
+    }
+
+    @Test
+    public void testGetPrescriptionUUID() {
+    }
+
+    @Test
+    public void testGetAppointmentUUID() {
+    }
+
+    @Test
+    public void testGetPatientUUID() {
     }
 
     @Test
